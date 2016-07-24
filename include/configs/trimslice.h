@@ -14,6 +14,20 @@
 /* High-level configuration options */
 #define CONFIG_TEGRA_BOARD_STRING	"Compulab Trimslice"
 
+/* default trimslice settings (different than tegra20-common.h) */
+#define CONFIG_SYS_LOAD_ADDR   0x00A00800
+#define CONFIG_SYS_TEXT_BASE   0x0010E000
+
+#define CONFIG_LOADADDR        0x00408000
+#define MEM_LAYOUT_ENV_SETTINGS \
+	"scriptaddr=0x10000000\0" \
+	"pxefile_addr_r=0x10100000\0" \
+	"kernel_addr_r=0x01000000\0" \
+	"fdt_addr_r=0x02000000\0" \
+	"ramdisk_addr_r=0x02100000\0"
+
+#define CONFIG_SYS_USB_EHCI_MAX_ROOT_PORTS 2
+
 /* Board-specific serial config */
 #define CONFIG_TEGRA_ENABLE_UARTA
 #define CONFIG_TEGRA_UARTA_GPU
