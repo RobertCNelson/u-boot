@@ -32,7 +32,9 @@
 /*-----------------------------------------------------------------------
  * Physical Memory Map
  */
+#ifndef CONFIG_TARGET_TRIMSLICE
 #define CONFIG_SYS_TEXT_BASE	0x00110000
+#endif
 
 /*
  * Memory layout for where various images get loaded by boot scripts:
@@ -58,6 +60,7 @@
  * ramdisk_addr_r simply shouldn't overlap anything else. Choosing 33M allows
  *   for the FDT/DTB to be up to 1M, which is hopefully plenty.
  */
+#ifndef CONFIG_TARGET_TRIMSLICE
 #define CONFIG_LOADADDR 0x01000000
 #define MEM_LAYOUT_ENV_SETTINGS \
 	"scriptaddr=0x10000000\0" \
@@ -65,6 +68,7 @@
 	"kernel_addr_r=" __stringify(CONFIG_LOADADDR) "\0" \
 	"fdt_addr_r=0x02000000\0" \
 	"ramdisk_addr_r=0x02100000\0"
+#endif
 
 /* Defines for SPL */
 #define CONFIG_SPL_TEXT_BASE		0x00108000
@@ -92,7 +96,9 @@
  */
 #define CONFIG_USB_EHCI_TXFIFO_THRESH	10
 #define CONFIG_EHCI_IS_TDI
+#ifndef CONFIG_TARGET_TRIMSLICE
 #define CONFIG_SYS_USB_EHCI_MAX_ROOT_PORTS 1
+#endif
 
 #define CONFIG_SYS_NAND_SELF_INIT
 #define CONFIG_SYS_NAND_ONFI_DETECTION
