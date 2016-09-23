@@ -417,6 +417,8 @@ int do_load(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[],
 	}
 	puts("\n");
 
+	flush_cache(addr, len_read);
+
 	setenv_hex("fileaddr", addr);
 	setenv_hex("filesize", len_read);
 
@@ -535,4 +537,3 @@ int do_fs_type(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 
 	return CMD_RET_SUCCESS;
 }
-
