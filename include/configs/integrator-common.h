@@ -14,7 +14,6 @@
 
 #define CONFIG_CMDLINE_TAG		/* enable passing of ATAGs  */
 #define CONFIG_SETUP_MEMORY_TAGS
-#define CONFIG_MISC_INIT_R		/* call misc_init_r during start up */
 
 /*
  * There are various dependencies on the core module (CM) fitted
@@ -64,7 +63,6 @@
 /*
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS	1		/* we have 1 bank of DRAM */
 #define PHYS_SDRAM_1		0x00000000	/* SDRAM Bank #1 */
 #define PHYS_SDRAM_1_SIZE	0x08000000	/* 128 MB */
 #define CONFIG_SYS_SDRAM_BASE	PHYS_SDRAM_1

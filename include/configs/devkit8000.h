@@ -31,11 +31,8 @@
 #define CONFIG_SYS_SPL_MALLOC_SIZE	0x100000	/* 1 MB */
 
 /*  Physical Memory Map  */
-#define CONFIG_NR_DRAM_BANKS		2 /* CS1 may or may not be populated */
 
 #include <configs/ti_omap3_common.h>
-
-#define CONFIG_MISC_INIT_R
 
 #define CONFIG_REVISION_TAG		1
 
@@ -57,7 +54,6 @@
 #undef	CONFIG_DM9000_DEBUG
 
 /* TWL4030 */
-#define CONFIG_TWL4030_LED		1
 
 /* Board NAND Info */
 #define CONFIG_JFFS2_NAND

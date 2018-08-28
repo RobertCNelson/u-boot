@@ -21,8 +21,6 @@
 
 #define CONFIG_PCI_INDIRECT_BRIDGE
 
-#define CONFIG_MISC_INIT_R	1	/* Call misc_init_r		*/
-
 /*
  * Only possible on E500 Version 2 or newer cores.
  */
@@ -220,7 +218,6 @@
 #undef CONFIG_PCI_SCAN_SHOW		/* show pci devices on startup	*/
 #endif	/* CONFIG_PCI */
 
-#define CONFIG_MII		1	/* MII PHY management */
 #define CONFIG_TSEC1	1
 #define CONFIG_TSEC1_NAME	"TSEC0"
 #define CONFIG_TSEC3	1

@@ -54,7 +54,6 @@
 /*
  * Memory Configuration
  */
-#define CONFIG_NR_DRAM_BANKS		1
 #define CONFIG_SYS_SDRAM_BASE		0x20000000
 #define CONFIG_SYS_SDRAM_SIZE		SZ_32M
 
@@ -115,7 +114,6 @@
 #define CONFIG_DRIVER_AT91EMAC
 #define CONFIG_SYS_RX_ETH_BUFFER	16
 #define CONFIG_RMII
-#define CONFIG_MII
 
 /*
  * NOR Flash

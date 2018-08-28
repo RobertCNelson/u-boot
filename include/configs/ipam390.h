@@ -17,7 +17,6 @@
 /*
  * Board
  */
-#define CONFIG_DRIVER_TI_EMAC
 
 /*
  * SoC Configuration
@@ -41,8 +40,6 @@
 
 /* memtest will be run on 16MB */
 #define CONFIG_SYS_MEMTEST_END	(CONFIG_SYS_MEMTEST_START + 16 * 1024 * 1024)
-
-#define CONFIG_NR_DRAM_BANKS	1 /* we have 1 bank of DRAM */
 
 #define CONFIG_SYS_DA850_SYSCFG_SUSPSRC (	\
 	DAVINCI_SYSCFG_SUSPSRC_TIMER0 |		\
@@ -170,7 +167,6 @@
 /*
  * U-Boot general configuration
  */
-#define CONFIG_MISC_INIT_R
 #define CONFIG_BOOTFILE		"uImage" /* Boot file name */
 #define CONFIG_SYS_CBSIZE	1024 /* Console I/O Buffer Size	*/
 #define CONFIG_SYS_BARGSIZE	CONFIG_SYS_CBSIZE /* Boot Args Buffer Size */

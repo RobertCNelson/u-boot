@@ -35,7 +35,6 @@
 
 /* Ethernet driver */
 #if defined(CONFIG_ZYNQ_GEM)
-# define CONFIG_MII
 # define CONFIG_SYS_FAULT_ECHO_LINK_DOWN
 # define CONFIG_BOOTP_MAY_FAIL
 #endif
@@ -226,10 +225,6 @@
 
 #define CONFIG_CLOCKS
 #define CONFIG_SYS_MAXARGS		32 /* max number of command args */
-
-#ifndef CONFIG_NR_DRAM_BANKS
-# define CONFIG_NR_DRAM_BANKS		1
-#endif
 
 #define CONFIG_SYS_MEMTEST_START	0
 #define CONFIG_SYS_MEMTEST_END		0x1000

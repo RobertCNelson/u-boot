@@ -46,7 +46,6 @@
 
 /* Eth Configs */
 #define CONFIG_HAS_ETH1
-#define CONFIG_MII
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -154,7 +153,6 @@
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS	2
 #define PHYS_SDRAM_1		CSD0_BASE_ADDR
 #define PHYS_SDRAM_1_SIZE	(512 * 1024 * 1024)
 #define PHYS_SDRAM_2		CSD1_BASE_ADDR

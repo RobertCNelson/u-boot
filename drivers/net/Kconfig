@@ -150,6 +150,14 @@ config ETH_DESIGNWARE
 	  100Mbit and 1 Gbit operation. You must enable CONFIG_PHYLIB to
 	  provide the PHY (physical media interface).
 
+config ETH_DESIGNWARE_SOCFPGA
+	bool "Altera SoCFPGA extras for Synopsys Designware Ethernet MAC"
+	depends on DM_ETH && ETH_DESIGNWARE
+	help
+	  The Altera SoCFPGA requires additional configuration of the
+	  Altera system manager to correctly interface with the PHY.
+	  This code handles those SoC specifics.
+
 config ETHOC
 	bool "OpenCores 10/100 Mbps Ethernet MAC"
 	help
@@ -233,6 +241,11 @@ config RGMII
 	  Enable the support of the Reduced Gigabit Media-Independent
 	  Interface (RGMII).
 
+config MII
+	bool "Enable MII"
+	help
+	  Enable support of the Media-Independent Interface (MII)
+
 config RTL8139
 	bool "Realtek 8139 series Ethernet controller driver"
 	help
@@ -308,6 +321,11 @@ config SH_ETHER
 	select PHYLIB
 	help
 	  This driver supports the Ethernet for Renesas SH and ARM SoCs.
+
+config DRIVER_TI_EMAC
+	bool "TI Davinci EMAC"
+	help
+	   Support for davinci emac
 
 config XILINX_AXIEMAC
 	depends on DM_ETH && (MICROBLAZE || ARCH_ZYNQ || ARCH_ZYNQMP)

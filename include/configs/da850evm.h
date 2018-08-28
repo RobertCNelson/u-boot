@@ -13,7 +13,6 @@
 /*
  * Board
  */
-#define CONFIG_DRIVER_TI_EMAC
 /* check if direct NOR boot config is used */
 #ifndef CONFIG_DIRECT_NOR_BOOT
 #define CONFIG_USE_SPIFLASH
@@ -56,8 +55,6 @@
 
 /* memtest will be run on 16MB */
 #define CONFIG_SYS_MEMTEST_END 	(PHYS_SDRAM_1 + 0x2000000 + 16*1024*1024)
-
-#define CONFIG_NR_DRAM_BANKS	1 /* we have 1 bank of DRAM */
 
 #define CONFIG_SYS_DA850_SYSCFG_SUSPSRC (	\
 	DAVINCI_SYSCFG_SUSPSRC_TIMER0 |		\
@@ -141,7 +138,6 @@
  * I2C Configuration
  */
 #ifndef CONFIG_SPL_BUILD
-#define CONFIG_SYS_I2C_DAVINCI
 #define CONFIG_SYS_I2C_EXPANDER_ADDR   0x20
 #endif
 
@@ -193,7 +189,6 @@
  * Network & Ethernet Configuration
  */
 #ifdef CONFIG_DRIVER_TI_EMAC
-#define CONFIG_MII
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
 #define CONFIG_NET_RETRY_COUNT	10
@@ -226,7 +221,6 @@
 /*
  * U-Boot general configuration
  */
-#define CONFIG_MISC_INIT_R
 #define CONFIG_BOOTFILE		"uImage" /* Boot file name */
 #define CONFIG_SYS_CBSIZE	1024 /* Console I/O Buffer Size	*/
 #define CONFIG_SYS_BARGSIZE	CONFIG_SYS_CBSIZE /* Boot Args Buffer Size */

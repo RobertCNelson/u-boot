@@ -9,13 +9,10 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#define CONFIG_NR_DRAM_BANKS	2	/* CS1 may or may not be populated */
-
 /* override base for compatibility with MLO the device ships with */
 
 #include <configs/ti_omap3_common.h>
 
-#define CONFIG_MISC_INIT_R
 #define CONFIG_REVISION_TAG		1
 
 #define CONFIG_ENV_SIZE			(128 << 10)	/* 128 KiB */
@@ -27,7 +24,6 @@
  */
 
 /* TWL4030 LED */
-#define CONFIG_TWL4030_LED
 
 /*
  * NS16550 Configuration
@@ -37,7 +33,6 @@
 #define CONFIG_SYS_NS16550_REG_SIZE	(-4)
 #define CONFIG_SYS_NS16550_CLK		V_NS16550_CLK
 #define CONFIG_SYS_NS16550_COM3		OMAP34XX_UART3
-#define CONFIG_SERIAL3			3
 
 /* commands to include */
 

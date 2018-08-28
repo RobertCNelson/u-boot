@@ -17,6 +17,7 @@
 #include <asm/arch/scan_manager.h>
 #include <asm/arch/sdram.h>
 #include <asm/arch/scu.h>
+#include <asm/arch/misc.h>
 #include <asm/arch/nic301.h>
 #include <asm/sections.h>
 #include <fdtdec.h>
@@ -67,31 +68,26 @@ u32 spl_boot_mode(const u32 boot_device)
 
 void spl_board_init(void)
 {
-	/* configuring the clock based on handoff */
-	cm_basic_init(gd->fdt_blob);
-	WATCHDOG_RESET();
-
-	config_dedicated_pins(gd->fdt_blob);
-	WATCHDOG_RESET();
-
-	/* Release UART from reset */
-	socfpga_reset_uart(0);
-
 	/* enable console uart printing */
 	preloader_console_init();
+	WATCHDOG_RESET();
+
+	arch_early_init_r();
 }
 
 void board_init_f(ulong dummy)
 {
-	/*
-	 * Configure Clock Manager to use intosc clock instead external osc to
-	 * ensure success watchdog operation. We do it as early as possible.
-	 */
-	cm_use_intosc();
+	socfpga_init_security_policies();
+	socfpga_sdram_remap_zero();
 
+	/* Assert reset to all except L4WD0 and L4TIMER0 */
+	socfpga_per_reset_all();
 	socfpga_watchdog_disable();
 
-	arch_early_init_r();
+	spl_early_init();
+
+	/* Configure the clock based on handoff */
+	cm_basic_init(gd->fdt_blob);
 
 #ifdef CONFIG_HW_WATCHDOG
 	/* release osc1 watchdog timer 0 from reset */
@@ -101,4 +97,7 @@ void board_init_f(ulong dummy)
 	hw_watchdog_init();
 	WATCHDOG_RESET();
 #endif /* CONFIG_HW_WATCHDOG */
+
+	config_dedicated_pins(gd->fdt_blob);
+	WATCHDOG_RESET();
 }

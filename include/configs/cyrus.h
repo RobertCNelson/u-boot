@@ -150,8 +150,6 @@
 #define CONFIG_SYS_RAMBOOT
 #endif
 
-#define CONFIG_MISC_INIT_R
-
 #define CONFIG_HWCONFIG
 
 /* define to use L1 as initial stack */
@@ -376,7 +374,6 @@
 
 #ifdef CONFIG_FMAN_ENET
 #define CONFIG_SYS_TBIPA_VALUE	8
-#define CONFIG_MII		/* MII PHY management */
 #define CONFIG_ETHPRIME		"FM1@DTSEC4"
 #endif
 

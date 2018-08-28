@@ -20,7 +20,6 @@
 #define CONFIG_SYS_MALLOC_LEN		(32 * SZ_1M)
 
 /* Network */
-#define CONFIG_MII
 #define CONFIG_FEC_XCV_TYPE             RMII
 #define CONFIG_ETHPRIME                 "FEC"
 #define CONFIG_FEC_MXC_PHYADDR		0
@@ -134,7 +133,6 @@
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS		1
 #define PHYS_SDRAM			MMDC0_ARB_BASE_ADDR
 
 #define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM

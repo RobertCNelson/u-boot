@@ -21,7 +21,6 @@
 #define CONFIG_SYS_FSL_ESDHC_NUM	1
 
 /* Eth Configs */
-#define CONFIG_MII
 
 /* USB Configs */
 #define CONFIG_USB_EHCI_MX5
@@ -88,7 +87,6 @@
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS	1
 #define PHYS_SDRAM_1			CSD0_BASE_ADDR
 #define PHYS_SDRAM_1_SIZE		(512 * SZ_1M)
 #define PHYS_SDRAM_SIZE		(PHYS_SDRAM_1_SIZE)

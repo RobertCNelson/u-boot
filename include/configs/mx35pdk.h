@@ -87,8 +87,6 @@
 #define IMX_FEC_BASE	FEC_BASE_ADDR
 #define CONFIG_FEC_MXC_PHYADDR	0x1F
 
-#define CONFIG_MII
-
 #define CONFIG_ARP_TIMEOUT	200UL
 
 /*
@@ -103,7 +101,6 @@
 /*
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS	2
 #define PHYS_SDRAM_1		CSD0_BASE_ADDR
 #define PHYS_SDRAM_1_SIZE	(128 * 1024 * 1024)
 #define PHYS_SDRAM_2		CSD1_BASE_ADDR

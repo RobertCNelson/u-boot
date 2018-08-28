@@ -6,8 +6,6 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#define CONFIG_NR_DRAM_BANKS	2	/* CS1 may or may not be populated */
-
 #include <configs/ti_omap3_common.h>
 /*
  * We are only ever GP parts and will utilize all of the "downloaded image"
@@ -17,7 +15,6 @@
 #define CONFIG_SPL_TEXT_BASE		0x40200000
 
 /* call misc_init_r */
-#define CONFIG_MISC_INIT_R
 
 /* pass the revision tag */
 #define CONFIG_REVISION_TAG
@@ -32,7 +29,6 @@
 /* I2C Support */
 
 /* TWL4030 LED */
-#define CONFIG_TWL4030_LED
 
 /* USB EHCI */
 #define CONFIG_OMAP_EHCI_PHY1_RESET_GPIO	183

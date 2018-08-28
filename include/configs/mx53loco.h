@@ -32,7 +32,6 @@
 #define CONFIG_SYS_FSL_ESDHC_NUM	2
 
 /* Eth Configs */
-#define CONFIG_MII
 
 #define CONFIG_FEC_MXC
 #define IMX_FEC_BASE	FEC_BASE_ADDR
@@ -150,7 +149,6 @@
 #define CONFIG_SYS_LOAD_ADDR		CONFIG_LOADADDR
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS	2
 #define PHYS_SDRAM_1			CSD0_BASE_ADDR
 #define PHYS_SDRAM_1_SIZE		(gd->bd->bi_dram[0].size)
 #define PHYS_SDRAM_2			CSD1_BASE_ADDR

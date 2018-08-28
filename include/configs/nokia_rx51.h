@@ -40,7 +40,6 @@
 #define V_OSCK			26000000	/* Clock output from T2 */
 #define V_SCLK			(V_OSCK >> 1)
 
-#define CONFIG_MISC_INIT_R
 #define CONFIG_SKIP_LOWLEVEL_INIT		/* X-Loader set everything up */
 
 #define CONFIG_CMDLINE_TAG	/* enable passing kernel command line string */
@@ -73,7 +72,6 @@
  * select serial console configuration
  */
 #define CONFIG_SYS_NS16550_COM3		OMAP34XX_UART3
-#define CONFIG_SERIAL3			3		/* UART3 on RX-51 */
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -93,8 +91,6 @@
 /*
  * TWL4030
  */
-#define CONFIG_TWL4030_LED
-#define CONFIG_TWL4030_KEYPAD
 
 #define GPIO_SLIDE			71
 
@@ -322,7 +318,6 @@ int rx51_kp_getc(struct stdio_dev *sdev);
 /*
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS		2
 #define PHYS_SDRAM_1			OMAP34XX_SDRC_CS0
 
 /*

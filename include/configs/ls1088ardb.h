@@ -8,8 +8,6 @@
 
 #include "ls1088a_common.h"
 
-#define CONFIG_MISC_INIT_R
-
 #if defined(CONFIG_QSPI_BOOT)
 #define CONFIG_ENV_SIZE			0x2000          /* 8KB */
 #define CONFIG_ENV_SECT_SIZE		0x40000
@@ -443,7 +441,6 @@
 #define QSGMII2_PORT3_PHY_ADDR		0x1e
 #define QSGMII2_PORT4_PHY_ADDR		0x1f
 
-#define CONFIG_MII
 #define CONFIG_ETHPRIME		"DPMAC1@xgmii"
 #define CONFIG_PHY_GIGE
 #endif

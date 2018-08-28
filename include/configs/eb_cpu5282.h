@@ -14,8 +14,6 @@
  * High Level Configuration Options (easy to change)                    *
  *----------------------------------------------------------------------*/
 
-#define CONFIG_MISC_INIT_R
-
 #define CONFIG_MCFUART
 #define CONFIG_SYS_UART_PORT		(0)
 
@@ -79,7 +77,6 @@
  *----------------------------------------------------------------------*/
 
 #define CONFIG_MCFFEC
-#define CONFIG_MII			1
 #define CONFIG_MII_INIT			1
 #define CONFIG_SYS_DISCOVER_PHY
 #define CONFIG_SYS_RX_ETH_BUFFER	8

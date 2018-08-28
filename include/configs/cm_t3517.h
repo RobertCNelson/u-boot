@@ -29,8 +29,6 @@
 #define V_OSCK			26000000	/* Clock output from T2 */
 #define V_SCLK			(V_OSCK >> 1)
 
-#define CONFIG_MISC_INIT_R
-
 /*
  * The early kernel mapping on ARM currently only maps from the base of DRAM
  * to the end of the kernel image.  The kernel is loaded at DRAM base + 0x8000.
@@ -66,7 +64,6 @@
  * select serial console configuration
  */
 #define CONFIG_SYS_NS16550_COM3		OMAP34XX_UART3
-#define CONFIG_SERIAL3			3	/* UART3 */
 
 /* allow to overwrite serial and ethaddr */
 #define CONFIG_ENV_OVERWRITE
@@ -172,7 +169,6 @@
 /*-----------------------------------------------------------------------
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS	1	/* CM-T3517 DRAM is only on CS0 */
 #define PHYS_SDRAM_1		OMAP34XX_SDRC_CS0
 #define CONFIG_SYS_CS0_SIZE		(256 << 20)
 
@@ -189,9 +185,7 @@
 #define CONFIG_ENV_ADDR			0x260000
 
 #if defined(CONFIG_CMD_NET)
-#define CONFIG_DRIVER_TI_EMAC
 #define CONFIG_DRIVER_TI_EMAC_USE_RMII
-#define CONFIG_MII
 #define CONFIG_ARP_TIMEOUT		200UL
 #define CONFIG_NET_RETRY_COUNT		5
 #endif /* CONFIG_CMD_NET */
@@ -208,7 +202,6 @@
 #define GREEN_LED_GPIO			186 /* CM-T3517 Green LED is GPIO186 */
 
 /* Display Configuration */
-#define CONFIG_VIDEO_OMAP3
 #define LCD_BPP		LCD_COLOR16
 
 #define CONFIG_SPLASH_SCREEN

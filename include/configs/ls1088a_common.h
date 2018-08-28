@@ -166,8 +166,6 @@ unsigned long long get_qixis_addr(void);
 /* Physical Memory Map */
 #define CONFIG_CHIP_SELECTS_PER_CTRL	4
 
-#define CONFIG_NR_DRAM_BANKS		2
-
 #define CONFIG_HWCONFIG
 #define HWCONFIG_BUFFER_SIZE		128
 
@@ -224,6 +222,7 @@ unsigned long long get_qixis_addr(void);
 #define CONFIG_SPL_LDSCRIPT "arch/arm/cpu/armv8/u-boot-spl.lds"
 #define CONFIG_SPL_MAX_SIZE            0x16000
 #define CONFIG_SPL_STACK               (CONFIG_SYS_FSL_OCRAM_BASE + 0x9ff0)
+#define CONFIG_SPL_TARGET              "u-boot-with-spl.bin"
 #define CONFIG_SPL_TEXT_BASE           0x1800a000
 
 #define CONFIG_SYS_SPL_MALLOC_SIZE     0x00100000

@@ -39,7 +39,6 @@
 #define CONFIG_SERIAL_TAG
 #define CONFIG_REVISION_TAG
 #define CONFIG_CMDLINE_TAG			/* enable passing of ATAGs */
-#define CONFIG_MISC_INIT_R			/* Call misc_init_r */
 
 #define CONFIG_PREBOOT				/* enable preboot variable */
 
@@ -59,7 +58,6 @@
 #define PHYS_SDRAM					ATMEL_BASE_CS1 /* 0x20000000 */
 #define PHYS_SDRAM_SIZE				0x02000000     /* 32 MByte */
 
-#define CONFIG_NR_DRAM_BANKS		1
 #define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM
 #define CONFIG_SYS_SDRAM_SIZE		PHYS_SDRAM_SIZE
 

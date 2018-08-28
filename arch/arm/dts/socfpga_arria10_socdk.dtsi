@@ -23,6 +23,7 @@
 	aliases {
 		ethernet0 = &gmac0;
 		serial0 = &uart1;
+		i2c0 = &i2c1;
 	};
 
 	chosen {
@@ -153,7 +154,6 @@
 };
 
 &uart1 {
-	clock-frequency = <50000000>;
 	u-boot,dm-pre-reloc;
 	status = "okay";
 };
@@ -165,4 +165,17 @@
 
 &watchdog1 {
 	status = "okay";
+};
+
+/* Clock available early */
+&main_periph_ref_clk {
+	u-boot,dm-pre-reloc;
+};
+
+&l4_mp_clk {
+	u-boot,dm-pre-reloc;
+};
+
+&l4_sp_clk {
+	u-boot,dm-pre-reloc;
 };

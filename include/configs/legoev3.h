@@ -37,8 +37,6 @@
 /* memtest will be run on 16MB */
 #define CONFIG_SYS_MEMTEST_END 	(PHYS_SDRAM_1 + 0x2000000 + 16*1024*1024)
 
-#define CONFIG_NR_DRAM_BANKS	1 /* we have 1 bank of DRAM */
-
 /*
  * Serial Driver info
  */
@@ -56,7 +54,6 @@
  * I2C Configuration
  */
 #define CONFIG_SYS_I2C
-#define CONFIG_SYS_I2C_DAVINCI
 #define CONFIG_SYS_DAVINCI_I2C_SPEED		400000
 #define CONFIG_SYS_DAVINCI_I2C_SLAVE   10 /* Bogus, master-only in U-Boot */
 

@@ -26,8 +26,6 @@
  * Board
  */
 
-#define CONFIG_MISC_INIT_R
-
 /*
  * Clocks
  */
@@ -38,8 +36,6 @@
 /*
  * DRAM
  */
-
-#define CONFIG_NR_DRAM_BANKS	1
 
 /*
  * Memory

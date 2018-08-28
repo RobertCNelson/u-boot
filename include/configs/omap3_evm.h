@@ -16,8 +16,6 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#define CONFIG_NR_DRAM_BANKS            2 /* CS1 may or may not be populated */
-
 #include <configs/ti_omap3_common.h>
 
 /*
@@ -27,7 +25,6 @@
 #undef CONFIG_SPL_TEXT_BASE
 #define CONFIG_SPL_TEXT_BASE            0x40200000
 
-#define CONFIG_MISC_INIT_R
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
 #define CONFIG_INITRD_TAG

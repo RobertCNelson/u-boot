@@ -23,7 +23,6 @@ unsigned long get_board_ddr_clk(void);
 #define CONFIG_DIMM_SLOTS_PER_CTLR	1
 /* Physical Memory Map */
 #define CONFIG_CHIP_SELECTS_PER_CTRL	4
-#define CONFIG_NR_DRAM_BANKS		2
 
 #define CONFIG_DDR_SPD
 #define SPD_EEPROM_ADDRESS		0x51
@@ -387,7 +386,6 @@ unsigned long get_board_ddr_clk(void);
 /*
  * Miscellaneous configurable options
  */
-#define CONFIG_MISC_INIT_R
 
 #define CONFIG_SYS_MEMTEST_START	0x80000000
 #define CONFIG_SYS_MEMTEST_END		0x9fffffff

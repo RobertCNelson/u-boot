@@ -320,8 +320,6 @@ unsigned long get_board_sys_clk(void);
 #define CONFIG_SYS_FSL_MMC_HAS_CAPBLT_VS33
 #endif
 
-#define CONFIG_MISC_INIT_R
-
 #define BOOT_TARGET_DEVICES(func) \
 	func(USB, usb, 0) \
 	func(MMC, mmc, 0) \
@@ -479,7 +477,6 @@ unsigned long get_board_sys_clk(void);
 #define AQ_PHY_ADDR4		0x03
 #define AQR405_IRQ_MASK		0x36
 
-#define CONFIG_MII
 #define CONFIG_ETHPRIME		"DPMAC1@xgmii"
 #define CONFIG_PHY_AQUANTIA
 #endif

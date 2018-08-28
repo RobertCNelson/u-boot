@@ -64,7 +64,6 @@
 #define CONFIG_SF_DEFAULT_SPEED		(75000000)
 
  /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS		1		/*  1 bank of DRAM */
 #define PHYS_DRAM_1			0x80000000	/* DRAM Bank #1 */
 
 #define CONFIG_SYS_SDRAM_BASE		PHYS_DRAM_1
@@ -83,7 +82,6 @@
 #define CONFIG_SYS_NS16550_COM1		0x44e09000
 #define CONFIG_SYS_NS16550_COM4		0x481a6000
 
-#define CONFIG_SERIAL1                  1
 
 /* I2C Configuration */
 #define CONFIG_I2C
@@ -188,7 +186,6 @@
 # define CONFIG_ENV_SECT_SIZE		(4 << 10) /* 4 KB sectors */
 #endif /* SPI support */
 
-#define CONFIG_MII
 #define CONFIG_BOOTP_DEFAULT
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
@@ -239,7 +236,6 @@
 	"project_dir=targetdir\0" \
 	"upgrade_available=0\0" \
 	"altbootcmd=run bootcmd\0" \
-	"bootlimit=3\0" \
 	"partitionset_active=A\0" \
 	"loadaddr=0x82000000\0" \
 	"kloadaddr=0x81000000\0" \

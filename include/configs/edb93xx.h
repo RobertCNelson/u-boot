@@ -93,7 +93,6 @@
 /* Network hardware configuration */
 #define CONFIG_DRIVER_EP93XX_MAC
 #define CONFIG_MII_SUPPRESS_PREAMBLE
-#define CONFIG_MII
 #undef CONFIG_NETCONSOLE
 
 /* SDRAM configuration */
@@ -137,7 +136,6 @@
 #endif
 
 #define CONFIG_SYS_SDRAM_BASE		PHYS_SDRAM_1
-#define CONFIG_NR_DRAM_BANKS		8
 
 #define CONFIG_SYS_INIT_SP_ADDR \
     (CONFIG_SYS_SDRAM_BASE + 32*1024 - GENERATED_GBL_DATA_SIZE)

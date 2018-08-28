@@ -101,7 +101,6 @@
 #define CONFIG_SYS_INIT_SP_ADDR \
 	(CONFIG_SYS_INIT_RAM_ADDR + CONFIG_SYS_INIT_SP_OFFSET)
 
-#define CONFIG_NR_DRAM_BANKS		1
 #define PHYS_SDRAM_0			CONFIG_SYS_SDRAM_BASE
 #define PHYS_SDRAM_0_SIZE		0x80000000 /* 2 GiB */
 
@@ -154,8 +153,6 @@
 #define CONFIG_SYS_MMC_ENV_DEV		0
 #endif
 #define CONFIG_SYS_MMC_MAX_DEVICE	4
-#elif defined(CONFIG_ENV_IS_NOWHERE)
-#define CONFIG_ENV_SIZE			(128 << 10)
 #endif
 
 #ifndef CONFIG_MACH_SUN8I_V3S
@@ -291,12 +288,8 @@ extern int soft_i2c_gpio_scl;
 #endif /* CONFIG_VIDEO_SUNXI */
 
 /* Ethernet support */
-#ifdef CONFIG_SUN4I_EMAC
-#define CONFIG_MII			/* MII PHY management		*/
-#endif
 
 #ifdef CONFIG_SUN7I_GMAC
-#define CONFIG_MII			/* MII PHY management		*/
 #define CONFIG_PHY_REALTEK
 #endif
 
@@ -309,8 +302,6 @@ extern int soft_i2c_gpio_scl;
 #ifdef CONFIG_USB_KEYBOARD
 #define CONFIG_PREBOOT
 #endif
-
-#define CONFIG_MISC_INIT_R
 
 #ifndef CONFIG_SPL_BUILD
 

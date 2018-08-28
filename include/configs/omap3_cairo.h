@@ -19,8 +19,6 @@
 #ifndef __OMAP3_CAIRO_CONFIG_H
 #define __OMAP3_CAIRO_CONFIG_H
 
-#define CONFIG_NR_DRAM_BANKS	2	/* CS1 may or may not be populated */
-
 /*
  * 1MB into the SDRAM to allow for SPL's bss at the beginning of SDRAM
  * 64 bytes before this address should be set aside for u-boot.img's
@@ -36,8 +34,6 @@
 
 #include <configs/ti_omap3_common.h>
 
-#define CONFIG_MISC_INIT_R
-
 #define CONFIG_REVISION_TAG		1
 #define CONFIG_ENV_OVERWRITE
 
@@ -50,7 +46,6 @@
 /*
  * TWL4030
  */
-#define CONFIG_TWL4030_LED		1
 
 /*
  * Board NAND Info.
@@ -203,8 +198,6 @@
  * function per_clocks_enable().
  */
 #ifdef CONFIG_SPL_BUILD
-#undef CONFIG_SERIAL3
-#define CONFIG_SERIAL2
 #endif
 
 /* Provide the MACH_TYPE value the vendor kernel requires */

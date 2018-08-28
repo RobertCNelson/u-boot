@@ -28,7 +28,6 @@
 #define S5P_CHECK_LPA			0xABAD0000
 
 /* select serial console configuration */
-#define CONFIG_SERIAL1			1	/* use SERIAL 1 */
 #define EXYNOS4_DEFAULT_UART_OFFSET	0x010000
 
 /* allow to overwrite serial and ethaddr */
@@ -50,7 +49,6 @@
 #define CONFIG_SYS_LOAD_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x3E00000)
 
 /* SMDKV310 has 4 bank of DRAM */
-#define CONFIG_NR_DRAM_BANKS	4
 #define SDRAM_BANK_SIZE		(512UL << 20UL)	/* 512 MB */
 #define PHYS_SDRAM_1		CONFIG_SYS_SDRAM_BASE
 #define PHYS_SDRAM_1_SIZE	SDRAM_BANK_SIZE

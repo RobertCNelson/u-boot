@@ -15,11 +15,9 @@
 #define CONFIG_SYS_SDRAM_BASE		0x40000000
 
 /* select serial console configuration */
-#define CONFIG_SERIAL2			/* use SERIAL 2 */
 
 #define TZPC_BASE_OFFSET		0x10000
 
-#define CONFIG_NR_DRAM_BANKS	8
 #define SDRAM_BANK_SIZE		(256UL << 20UL)	/* 256 MB */
 /* Reserve the last 22 MiB for the secure firmware */
 #define CONFIG_SYS_MEM_TOP_HIDE		(22UL << 20UL)
@@ -82,7 +80,6 @@
 
 /* Enable: board/samsung/common/misc.c to use set_dfu_alt_info() */
 #define CONFIG_MISC_COMMON
-#define CONFIG_MISC_INIT_R
 #define CONFIG_SET_DFU_ALT_INFO
 #define CONFIG_SET_DFU_ALT_BUF_LEN	(SZ_1K)
 

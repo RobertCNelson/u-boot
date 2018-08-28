@@ -26,7 +26,6 @@
 #define CONFIG_MMCROOT         "/dev/mmcblk1p2" /* Dev kit SD card */
 
 /* Ethernet Configs */
-#define CONFIG_MII
 #define CONFIG_FEC_XCV_TYPE            RMII
 #define CONFIG_ETHPRIME                "FEC"
 #define CONFIG_FEC_MXC_PHYADDR         0
@@ -122,7 +121,6 @@
 #define CONFIG_SYS_MEMTEST_SCRATCH     0x10800000
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS           1
 #define PHYS_SDRAM                     MMDC0_ARB_BASE_ADDR
 #define CONFIG_SYS_SDRAM_BASE          PHYS_SDRAM
 #define CONFIG_SYS_INIT_RAM_ADDR       IRAM_BASE_ADDR

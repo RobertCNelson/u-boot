@@ -26,7 +26,6 @@
 #define CONFIG_ETHPRIME			"FEC"
 #define CONFIG_FEC_MXC_PHYADDR		0x01
 
-#define CONFIG_MII
 #define CONFIG_PHY_MICREL_KSZ9021
 
 /* I2C Configs */
@@ -38,7 +37,6 @@
 /* Filesystem support */
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS           1
 #define PHYS_SDRAM                     MMDC0_ARB_BASE_ADDR
 
 #define CONFIG_SYS_SDRAM_BASE          PHYS_SDRAM

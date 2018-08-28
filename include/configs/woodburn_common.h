@@ -80,7 +80,6 @@
 #define IMX_FEC_BASE	FEC_BASE_ADDR
 #define CONFIG_FEC_MXC_PHYADDR	0x1
 
-#define CONFIG_MII
 #define CONFIG_DISCOVER_PHY
 
 #define CONFIG_ARP_TIMEOUT	200UL
@@ -97,7 +96,6 @@
 /*
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS	1
 #define PHYS_SDRAM_1		CSD0_BASE_ADDR
 #define PHYS_SDRAM_1_SIZE	(256 * 1024 * 1024)
 

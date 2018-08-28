@@ -14,7 +14,6 @@
 /*
  * Board
  */
-#define CONFIG_DRIVER_TI_EMAC
 #define CONFIG_MACH_TYPE	MACH_TYPE_CALIMAIN
 
 /*
@@ -122,8 +121,6 @@
 /* memtest will be run on 16MB */
 #define CONFIG_SYS_MEMTEST_END		(CONFIG_SYS_MEMTEST_START + (16 << 20))
 
-#define CONFIG_NR_DRAM_BANKS	1 /* we have 1 bank of DRAM */
-
 /*
  * Serial Driver info
  */
@@ -153,7 +150,6 @@
  * Network & Ethernet Configuration
  */
 #ifdef CONFIG_DRIVER_TI_EMAC
-#define CONFIG_MII
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
 #define CONFIG_NET_RETRY_COUNT	10
@@ -255,7 +251,6 @@
 	"verify=n\0"							\
 	"clearenv=protect off all;"					\
 		"erase 0x60040000 +0x40000;\0"				\
-	"bootlimit=3\0"							\
 	"altbootcmd=run bootrlk\0"
 
 #define CONFIG_PREBOOT			\

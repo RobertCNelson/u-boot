@@ -24,8 +24,6 @@
 #define CONFIG_KIRKWOOD_RGMII_PAD_1V8	/* Set RGMII Pad voltage to 1.8V */
 #define CONFIG_KIRKWOOD_GPIO	1
 
-#define CONFIG_MISC_INIT_R		/* call misc_init_r */
-
 /*
  * NS16550 Configuration
  */
@@ -91,7 +89,6 @@
  * Other required minimal configurations
  */
 #define CONFIG_ARCH_CPU_INIT	/* call arch_cpu_init() */
-#define CONFIG_NR_DRAM_BANKS	4
 #define CONFIG_SYS_MEMTEST_START 0x00400000	/* 4M */
 #define CONFIG_SYS_MEMTEST_END	0x007fffff	/*(_8M -1) */
 #define CONFIG_SYS_RESET_ADDRESS 0xffff0000	/* Rst Vector Adr */
@@ -102,7 +99,6 @@
 #ifdef CONFIG_CMD_NET
 #define CONFIG_NETCONSOLE	/* include NetConsole support */
 #define CONFIG_NET_MULTI	/* specify more that one ports available */
-#define CONFIG_MII		/* expose smi over miiphy interface */
 #define CONFIG_MVGBE	/* Enable kirkwood Gbe Controller Driver */
 #define CONFIG_MVGBE_PORTS	{1, 0}	/* enable a single port */
 #define CONFIG_PHY_BASE_ADR	0x01

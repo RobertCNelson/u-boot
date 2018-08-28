@@ -38,7 +38,6 @@
 
 /* Kirkwood has 2k of Security SRAM, use it for SP */
 #define CONFIG_SYS_INIT_SP_ADDR		0xC8012000
-#define CONFIG_NR_DRAM_BANKS_MAX	2
 
 #define CONFIG_I2C_MVTWSI_BASE0	KW_TWSI_BASE
 #define MV_UART_CONSOLE_BASE	KW_UART0_BASE
@@ -75,7 +74,6 @@
  */
 #ifdef CONFIG_CMD_NET
 #define CONFIG_NETCONSOLE	/* include NetConsole support   */
-#define CONFIG_MII		/* expose smi ove miiphy interface */
 #define CONFIG_SYS_FAULT_ECHO_LINK_DOWN	/* detect link using phy */
 #define CONFIG_ENV_OVERWRITE	/* ethaddr can be reprogrammed */
 #define CONFIG_RESET_PHY_R	/* use reset_phy() to init mv8831116 PHY */

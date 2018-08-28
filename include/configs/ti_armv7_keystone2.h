@@ -20,7 +20,6 @@
 #define CONFIG_SYS_DCACHE_OFF
 
 /* Memory Configuration */
-#define CONFIG_NR_DRAM_BANKS		2
 #define CONFIG_SYS_LPAE_SDRAM_BASE	0x800000000
 #define CONFIG_MAX_RAM_BANK_SIZE	(2 << 30)       /* 2GB */
 #define CONFIG_SYS_INIT_SP_ADDR		(CONFIG_SPL_TEXT_BASE - \
@@ -89,7 +88,6 @@
 #endif
 
 /* Network Configuration */
-#define CONFIG_MII
 #define CONFIG_BOOTP_DEFAULT
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
@@ -143,7 +141,6 @@
 #define CONFIG_AEMIF_CNTRL_BASE		KS2_AEMIF_CNTRL_BASE
 
 /* I2C Configuration */
-#define CONFIG_SYS_I2C_DAVINCI
 #define CONFIG_SYS_DAVINCI_I2C_SPEED	100000
 #define CONFIG_SYS_DAVINCI_I2C_SLAVE	0x10 /* SMBus host address */
 #define CONFIG_SYS_DAVINCI_I2C_SPEED1	100000
@@ -181,7 +178,6 @@
 #define CONFIG_USB_PHY_CFG_BASE			KS2_USB_PHY_CFG_BASE
 
 /* U-Boot general configuration */
-#define CONFIG_MISC_INIT_R
 #define CONFIG_MX_CYCLIC
 #define CONFIG_TIMESTAMP
 

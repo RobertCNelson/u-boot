@@ -7,8 +7,6 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
-#define CONFIG_MISC_INIT_R
-
 #define CONFIG_SYS_FLASH_BASE		0x08000000
 
 #define CONFIG_SYS_INIT_SP_ADDR		0x10010000
@@ -16,7 +14,6 @@
 /*
  * Configuration of the external SDRAM memory
  */
-#define CONFIG_NR_DRAM_BANKS		1
 #define CONFIG_SYS_LOAD_ADDR		0x90400000
 #define CONFIG_LOADADDR			0x90400000
 

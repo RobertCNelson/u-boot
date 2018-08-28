@@ -254,6 +254,14 @@ config CMD_BOOTMENU
 	help
 	  Add an ANSI terminal boot menu command.
 
+config CMD_DTIMG
+	bool "dtimg"
+	help
+	  Android DTB/DTBO image manipulation commands. Read dtb/dtbo files from
+	  image into RAM, dump image structure information, etc. Those dtb/dtbo
+	  files should be merged in one dtb further, which needs to be passed to
+	  the kernel, as part of a boot process.
+
 config CMD_ELF
 	bool "bootelf, bootvx"
 	default y
@@ -606,6 +614,15 @@ config CMD_ADC
 	help
 	  Shows ADC device info and permit printing one-shot analog converted
 	  data from a named Analog to Digital Converter.
+
+config CMD_BIND
+	bool "bind/unbind - Bind or unbind a device to/from a driver"
+	depends on DM
+	help
+	  Bind or unbind a device to/from a driver from the command line.
+	  This is useful in situations where a device may be handled by several
+	  drivers. For example, this can be used to bind a UDC to the usb ether
+	  gadget driver from the command line.
 
 config CMD_CLK
 	bool "clk - Show clock frequencies"
@@ -1074,6 +1091,7 @@ if NET
 menuconfig CMD_NET
 	bool "Network commands"
 	default y
+	imply NETDEVICES
 
 if CMD_NET
 
@@ -1806,7 +1824,6 @@ endmenu
 
 config CMD_UBI
 	tristate "Enable UBI - Unsorted block images commands"
-	default y if NAND_SUNXI
 	select CMD_MTDPARTS
 	select CRC32
 	select MTD_UBI

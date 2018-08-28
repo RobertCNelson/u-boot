@@ -39,7 +39,6 @@
 /*
  * select serial console configuration
  */
-#define CONFIG_SERIAL2			1	/* use SERIAL2 */
 
 /* MMC */
 #define SDHCI_MAX_HOSTS		4
@@ -99,7 +98,6 @@
 			" onenand write 0x32008000 0x0 0x100000\0"
 
 #define CONFIG_MISC_COMMON
-#define CONFIG_MISC_INIT_R
 
 #define CONFIG_ENV_OVERWRITE
 #define CONFIG_EXTRA_ENV_SETTINGS					\
@@ -156,7 +154,6 @@
 #define CONFIG_SYS_LOAD_ADDR		(CONFIG_SYS_SDRAM_BASE + 0x4000000)
 
 /* Goni has 3 banks of DRAM, but swap the bank */
-#define CONFIG_NR_DRAM_BANKS	3
 #define PHYS_SDRAM_1		CONFIG_SYS_SDRAM_BASE	/* OneDRAM Bank #0 */
 #define PHYS_SDRAM_1_SIZE	(80 << 20)		/* 80 MB in Bank #0 */
 #define PHYS_SDRAM_2		0x40000000		/* mDDR DMC1 Bank #1 */

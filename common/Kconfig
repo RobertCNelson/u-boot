@@ -539,6 +539,13 @@ config DEFAULT_FDT_FILE
 	help
 	  This option is used to set the default fdt file to boot OS.
 
+config MISC_INIT_R
+	bool "Execute Misc Init"
+	default y if ARCH_KEYSTONE || ARCH_SUNXI || MPC85xx
+	default y if ARCH_OMAP2PLUS && !AM33XX
+	help
+	  Enabling this option calls 'misc_init_r' function
+
 config VERSION_VARIABLE
 	bool "add U-Boot environment variable vers"
 	default n
@@ -640,6 +647,7 @@ config HASH
 config AVB_VERIFY
 	bool "Build Android Verified Boot operations"
 	depends on LIBAVB && FASTBOOT
+	depends on PARTITION_UUIDS
 	help
 	  This option enables compilation of bootloader-dependent operations,
 	  used by Android Verified Boot 2.0 library (libavb). Includes:

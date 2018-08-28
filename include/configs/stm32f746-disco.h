@@ -20,7 +20,6 @@
 /*
  * Configuration of the external SDRAM memory
  */
-#define CONFIG_NR_DRAM_BANKS		1
 
 #define CONFIG_SYS_MAX_FLASH_SECT	8
 #define CONFIG_SYS_MAX_FLASH_BANKS	1
@@ -31,7 +30,6 @@
 
 #define CONFIG_DW_GMAC_DEFAULT_DMA_PBL	(8)
 #define CONFIG_DW_ALTDESCRIPTOR
-#define CONFIG_MII
 #define CONFIG_PHY_SMSC
 
 #define CONFIG_SYS_HZ_CLOCK		1000000	/* Timer is clocked at 1MHz */

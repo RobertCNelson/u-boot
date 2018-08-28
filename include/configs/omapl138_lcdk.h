@@ -13,7 +13,6 @@
 /*
  * Board
  */
-#define CONFIG_DRIVER_TI_EMAC
 #undef CONFIG_USE_SPIFLASH
 #undef	CONFIG_SYS_USE_NOR
 
@@ -49,8 +48,6 @@
 
 /* memtest will be run on 16MB */
 #define CONFIG_SYS_MEMTEST_END 	(PHYS_SDRAM_1 + 0x2000000 + 16*1024*1024)
-
-#define CONFIG_NR_DRAM_BANKS	1 /* we have 1 bank of DRAM */
 
 #define CONFIG_SYS_DA850_SYSCFG_SUSPSRC (	\
 	DAVINCI_SYSCFG_SUSPSRC_TIMER0 |		\
@@ -133,7 +130,6 @@
 /*
  * I2C Configuration
  */
-#define CONFIG_SYS_I2C_DAVINCI
 #define CONFIG_SYS_DAVINCI_I2C_SPEED	25000
 #define CONFIG_SYS_DAVINCI_I2C_SLAVE	10 /* Bogus, master-only in U-Boot */
 #define CONFIG_SYS_I2C_EXPANDER_ADDR	0x20
@@ -206,7 +202,6 @@
  * Network & Ethernet Configuration
  */
 #ifdef CONFIG_DRIVER_TI_EMAC
-#define CONFIG_MII
 #undef	CONFIG_DRIVER_TI_EMAC_USE_RMII
 #define CONFIG_BOOTP_DEFAULT
 #define CONFIG_BOOTP_DNS2
@@ -217,7 +212,6 @@
 /*
  * U-Boot general configuration
  */
-#define CONFIG_MISC_INIT_R
 #define CONFIG_BOOTFILE		"zImage" /* Boot file name */
 #define CONFIG_SYS_CBSIZE	1024 /* Console I/O Buffer Size	*/
 #define CONFIG_SYS_BARGSIZE	CONFIG_SYS_CBSIZE /* Boot Args Buffer Size */

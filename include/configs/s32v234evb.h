@@ -77,7 +77,6 @@
 /* Ethernet config */
 #define CONFIG_CMD_MII
 #define CONFIG_FEC_MXC
-#define CONFIG_MII
 #define IMX_FEC_BASE            ENET_BASE_ADDR
 #define CONFIG_FEC_XCV_TYPE     RMII
 #define CONFIG_FEC_MXC_PHYADDR  0
@@ -167,7 +166,6 @@
 
 /* Physical memory map */
 /* EVB board has 2x256 MB DDR chips, DDR0 and DDR1, u-boot is using just one */
-#define CONFIG_NR_DRAM_BANKS		1
 #define PHYS_SDRAM			(DDR_BASE_ADDR)
 #define PHYS_SDRAM_SIZE			(256 * 1024 * 1024)
 

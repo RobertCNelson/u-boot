@@ -97,7 +97,6 @@
 /**
  * Physical Memory Map
  */
-#define CONFIG_NR_DRAM_BANKS		1		/* 1 banks of DRAM */
 #define PHYS_DRAM_1_SIZE		0x20000000	/* 512MB */
 #define CONFIG_MAX_RAM_BANK_SIZE	(1024 << 20)	/* 1024MB */
 
@@ -154,7 +153,6 @@
 #endif
 
 /* Ethernet */
-#define CONFIG_MII
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
 #define CONFIG_NET_RETRY_COUNT         10

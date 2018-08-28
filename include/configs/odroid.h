@@ -21,7 +21,6 @@
 
 #define CONFIG_MACH_TYPE	4289
 
-#define CONFIG_NR_DRAM_BANKS	8
 #define CONFIG_SYS_SDRAM_BASE	0x40000000
 #define SDRAM_BANK_SIZE		(256 << 20)	/* 256 MB */
 #define PHYS_SDRAM_1		CONFIG_SYS_SDRAM_BASE
@@ -37,7 +36,6 @@
 #include <linux/sizes.h>
 
 /* select serial console configuration */
-#define CONFIG_SERIAL1
 
 /* Console configuration */
 
@@ -189,7 +187,6 @@
  */
 #define CONFIG_MISC_COMMON
 #define CONFIG_BOARD_TYPES
-#define CONFIG_MISC_INIT_R
 
 #undef CONFIG_REVISION_TAG
 

@@ -39,7 +39,6 @@
 #endif
 
 /* Memory layout */
-#define CONFIG_NR_DRAM_BANKS		1
 #define CONFIG_SYS_SDRAM_BASE		0x00000000
 #define CONFIG_SYS_UBOOT_BASE		CONFIG_SYS_TEXT_BASE
 /*
@@ -66,7 +65,6 @@
 
 #ifdef CONFIG_CMD_USB
 #define CONFIG_TFTP_TSIZE
-#define CONFIG_MISC_INIT_R
 #endif
 
 /* Console configuration */

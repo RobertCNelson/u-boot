@@ -16,7 +16,6 @@
 #define CONFIG_IODELAY_RECALIBRATION
 
 #define CONFIG_VERY_BIG_RAM
-#define CONFIG_NR_DRAM_BANKS		2
 #define CONFIG_MAX_MEM_MAPPED		0x80000000
 
 #ifndef CONFIG_QSPI_BOOT
@@ -71,7 +70,6 @@
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
 #define CONFIG_NET_RETRY_COUNT		10
-#define CONFIG_MII			/* Required in net/eth.c */
 #define CONFIG_PHY_TI
 
 /* SPI */

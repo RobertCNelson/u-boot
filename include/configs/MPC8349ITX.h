@@ -52,7 +52,6 @@
 #define CONFIG_SYS_IMMR	0xE0000000	/* The IMMR is relocated to here */
 
 #define CONFIG_MISC_INIT_F
-#define CONFIG_MISC_INIT_R
 
 /*
  * On-board devices
@@ -408,9 +407,6 @@ boards, we say we have two, but don't display a message if we find only one. */
 /* TSEC */
 
 #ifdef CONFIG_TSEC_ENET
-
-#define CONFIG_MII
-
 #define CONFIG_TSEC1
 
 #ifdef CONFIG_TSEC1

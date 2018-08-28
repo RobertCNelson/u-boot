@@ -64,7 +64,6 @@
 /* UBI/UBI config options */
 
 /* Ethernet config options */
-#define CONFIG_MII
 #define CONFIG_PHY_RESET_DELAY			10000		/* in usec */
 
 #define CONFIG_SPEAR_GPIO
@@ -102,7 +101,6 @@
 #define CONFIG_BOOT_PARAMS_ADDR			0x00000100
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_SETUP_MEMORY_TAGS
-#define CONFIG_MISC_INIT_R
 #define CONFIG_MX_CYCLIC		/* enable mdc/mwc commands      */
 
 #define CONFIG_SYS_MEMTEST_START		0x00800000
@@ -183,7 +181,6 @@
 	"\0"
 
 /* Physical Memory Map */
-#define CONFIG_NR_DRAM_BANKS			1
 #define PHYS_SDRAM_1				0x00000000
 #define PHYS_SDRAM_1_MAXSIZE			0x40000000
 

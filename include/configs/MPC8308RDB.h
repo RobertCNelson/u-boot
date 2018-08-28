@@ -15,8 +15,6 @@
 #define CONFIG_MPC830x		1 /* MPC830x family */
 #define CONFIG_MPC8308		1 /* MPC8308 CPU specific */
 
-#define CONFIG_MISC_INIT_R
-
 #ifdef CONFIG_MMC
 #define CONFIG_SYS_FSL_ESDHC_ADDR	CONFIG_SYS_MPC83xx_ESDHC_ADDR
 #define CONFIG_SYS_FSL_ESDHC_USE_PIO
@@ -371,7 +369,6 @@
 /*
  * TSEC ethernet configuration
  */
-#define CONFIG_MII		1 /* MII PHY management */
 #define CONFIG_TSEC1_NAME	"eTSEC0"
 #define CONFIG_TSEC2_NAME	"eTSEC1"
 #define TSEC1_PHY_ADDR		2

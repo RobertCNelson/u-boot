@@ -20,7 +20,6 @@
 /*
  * Memory configurations
  */
-#define CONFIG_NR_DRAM_BANKS		1
 #define PHYS_SDRAM_1			0x0
 #define CONFIG_SYS_MALLOC_LEN		(64 * 1024 * 1024)
 #define CONFIG_SYS_MEMTEST_START	PHYS_SDRAM_1
@@ -75,7 +74,6 @@
  */
 #ifdef CONFIG_CMD_NET
 #define CONFIG_DW_ALTDESCRIPTOR
-#define CONFIG_MII
 #endif
 
 /*
@@ -88,11 +86,13 @@
 /*
  * L4 OSC1 Timer 0
  */
+#ifndef CONFIG_TIMER
 /* This timer uses eosc1, whose clock frequency is fixed at any condition. */
 #define CONFIG_SYS_TIMERBASE		SOCFPGA_OSC1TIMER0_ADDRESS
 #define CONFIG_SYS_TIMER_COUNTS_DOWN
 #define CONFIG_SYS_TIMER_COUNTER	(CONFIG_SYS_TIMERBASE + 0x4)
 #define CONFIG_SYS_TIMER_RATE		25000000
+#endif
 
 /*
  * L4 Watchdog

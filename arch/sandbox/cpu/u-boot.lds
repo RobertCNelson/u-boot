@@ -17,16 +17,13 @@ SECTIONS
 	_u_boot_sandbox_getopt : { *(.u_boot_sandbox_getopt) }
 	__u_boot_sandbox_option_end = .;
 
-	__bss_start = .;
-
-		.__efi_runtime_start : {
+	.__efi_runtime_start : {
 		*(.__efi_runtime_start)
 	}
 
 	.efi_runtime : {
-		*(.text.efi_runtime*)
-		*(.rodata.efi_runtime*)
-		*(.data.efi_runtime*)
+		*(efi_runtime_text)
+		*(efi_runtime_data)
 	}
 
 	.__efi_runtime_stop : {
@@ -39,8 +36,8 @@ SECTIONS
 	}
 
 	.efi_runtime_rel : {
-		*(.rel*.efi_runtime)
-		*(.rel*.efi_runtime.*)
+		*(.relefi_runtime_text)
+		*(.relefi_runtime_data)
 	}
 
 	.efi_runtime_rel_stop :
@@ -48,6 +45,7 @@ SECTIONS
 		*(.__efi_runtime_rel_stop)
 	}
 
+	__bss_start = .;
 }
 
 INSERT BEFORE .data;

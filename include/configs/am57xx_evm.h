@@ -16,8 +16,6 @@
 
 #define CONFIG_IODELAY_RECALIBRATION
 
-#define CONFIG_NR_DRAM_BANKS		2
-
 /* MMC ENV related defines */
 #define CONFIG_SYS_MMC_ENV_DEV		1		/* eMMC */
 #define CONFIG_SYS_MMC_ENV_PART		0
@@ -52,7 +50,6 @@
 #define CONFIG_BOOTP_DNS2
 #define CONFIG_BOOTP_SEND_HOSTNAME
 #define CONFIG_NET_RETRY_COUNT		10
-#define CONFIG_MII			/* Required in net/eth.c */
 #define PHY_ANEG_TIMEOUT	8000	/* PHY needs longer aneg time at 1G */
 
 #define CONFIG_SUPPORT_EMMC_BOOT

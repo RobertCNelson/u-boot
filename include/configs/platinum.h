@@ -36,7 +36,6 @@
 
 /* Ethernet config */
 #define CONFIG_FEC_MXC
-#define CONFIG_MII
 #define IMX_FEC_BASE				ENET_BASE_ADDR
 
 /* USB config */
@@ -45,7 +44,6 @@
 #define CONFIG_MXC_USB_FLAGS			0
 
 /* Memory config */
-#define CONFIG_NR_DRAM_BANKS			1
 #define PHYS_SDRAM				MMDC0_ARB_BASE_ADDR
 #ifndef PHYS_SDRAM_SIZE
 #define PHYS_SDRAM_SIZE				(1024 << 20)
@@ -96,7 +94,6 @@
  */
 
 /* Board startup config */
-#define CONFIG_MISC_INIT_R
 
 #define CONFIG_SYS_MEMTEST_START		PHYS_SDRAM
 #define CONFIG_SYS_MEMTEST_END			(CONFIG_SYS_MEMTEST_START + \
