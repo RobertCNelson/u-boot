@@ -73,6 +73,44 @@ enum serial_par {
 	SERIAL_PAR_EVEN
 };
 
+#define SERIAL_PAR_SHIFT	0
+#define SERIAL_PAR_MASK		(0x03 << SERIAL_PAR_SHIFT)
+#define SERIAL_GET_PARITY(config) \
+	((config & SERIAL_PAR_MASK) >> SERIAL_PAR_SHIFT)
+
+enum serial_bits {
+	SERIAL_5_BITS,
+	SERIAL_6_BITS,
+	SERIAL_7_BITS,
+	SERIAL_8_BITS
+};
+
+#define SERIAL_BITS_SHIFT	2
+#define SERIAL_BITS_MASK	(0x3 << SERIAL_BITS_SHIFT)
+#define SERIAL_GET_BITS(config) \
+	((config & SERIAL_BITS_MASK) >> SERIAL_BITS_SHIFT)
+
+enum serial_stop {
+	SERIAL_HALF_STOP,	/* 0.5 stop bit */
+	SERIAL_ONE_STOP,	/*   1 stop bit */
+	SERIAL_ONE_HALF_STOP,	/* 1.5 stop bit */
+	SERIAL_TWO_STOP		/*   2 stop bit */
+};
+
+#define SERIAL_STOP_SHIFT	4
+#define SERIAL_STOP_MASK	(0x3 << SERIAL_STOP_SHIFT)
+#define SERIAL_GET_STOP(config) \
+	((config & SERIAL_STOP_MASK) >> SERIAL_STOP_SHIFT)
+
+#define SERIAL_CONFIG(par, bits, stop) \
+		     (par << SERIAL_PAR_SHIFT | \
+		      bits << SERIAL_BITS_SHIFT | \
+		      stop << SERIAL_STOP_SHIFT)
+
+#define SERIAL_DEFAULT_CONFIG	SERIAL_PAR_NONE << SERIAL_PAR_SHIFT | \
+				SERIAL_8_BITS << SERIAL_BITS_SHIFT | \
+				SERIAL_ONE_STOP << SERIAL_STOP_SHIFT
+
 /**
  * struct struct dm_serial_ops - Driver model serial operations
  *
@@ -149,16 +187,20 @@ struct dm_serial_ops {
 	 */
 	int (*loop)(struct udevice *dev, int on);
 #endif
+
 	/**
-	 * setparity() - Set up the parity
+	 * setconfig() - Set up the uart configuration
+	 * (parity, 5/6/7/8 bits word length, stop bits)
 	 *
-	 * Set up a new parity for this device.
+	 * Set up a new config for this device.
 	 *
 	 * @dev: Device pointer
 	 * @parity: parity to use
+	 * @bits: bits number to use
+	 * @stop: stop bits number to use
 	 * @return 0 if OK, -ve on error
 	 */
-	int (*setparity)(struct udevice *dev, enum serial_par parity);
+	int (*setconfig)(struct udevice *dev, uint serial_config);
 };
 
 /**

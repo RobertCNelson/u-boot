@@ -54,6 +54,14 @@ config CLK_STM32F
 	  This clock driver adds support for RCC clock management
 	  for STM32F4 and STM32F7 SoCs.
 
+config CLK_TI_SCI
+	bool "TI System Control Interface (TI SCI) clock driver"
+	depends on CLK && TI_SCI_PROTOCOL && OF_CONTROL
+	help
+	  This enables the clock driver support over TI System Control Interface
+	  available on some new TI's SoCs. If you wish to use clock resources
+	  managed by the TI System Controller, say Y here. Otherwise, say N.
+
 config CLK_HSDK
 	bool "Enable cgu clock driver for HSDK"
 	depends on CLK
@@ -98,5 +106,11 @@ config ICS8N3QV01
 	  Support for the ICS8N3QV01 Quad-Frequency VCXO (Voltage-Controlled
 	  Crystal Oscillator). The output frequency can be programmed via an
 	  I2C interface.
+
+config CLK_MPC83XX
+	bool "Enable MPC83xx clock driver"
+	depends on CLK
+	help
+	  Support for the clock driver of the MPC83xx series of SoCs.
 
 endmenu

@@ -15,7 +15,7 @@ arch-$(CONFIG_CPU_PXA)		=
 arch-$(CONFIG_CPU_ARM1136)	=-march=armv5
 arch-$(CONFIG_CPU_ARM1176)	=-march=armv5t
 arch-$(CONFIG_CPU_V7A)		=$(call cc-option, -march=armv7-a, \
-				 $(call cc-option, -march=armv7, -march=armv5))
+				 $(call cc-option, -march=armv7))
 arch-$(CONFIG_CPU_V7M)		=-march=armv7-m
 arch-$(CONFIG_CPU_V7R)		=-march=armv7-r
 arch-$(CONFIG_ARM64)		=-march=armv8-a
@@ -40,7 +40,7 @@ tune-$(CONFIG_CPU_SA1100)	=-mtune=strongarm1100
 tune-$(CONFIG_CPU_PXA)		=-mcpu=xscale
 tune-$(CONFIG_CPU_ARM1136)	=
 tune-$(CONFIG_CPU_ARM1176)	=
-tune-$(CONFIG_CPU_V7A)		=
+tune-$(CONFIG_CPU_V7A)		=-mtune=generic-armv7-a
 tune-$(CONFIG_CPU_V7R)		=
 tune-$(CONFIG_ARM64)		=
 
@@ -58,6 +58,7 @@ machine-$(CONFIG_ARCH_BCMSTB)		+= bcmstb
 machine-$(CONFIG_ARCH_DAVINCI)		+= davinci
 machine-$(CONFIG_ARCH_EXYNOS)		+= exynos
 machine-$(CONFIG_ARCH_HIGHBANK)		+= highbank
+machine-$(CONFIG_ARCH_K3)		+= k3
 machine-$(CONFIG_ARCH_KEYSTONE)		+= keystone
 # TODO: rename CONFIG_KIRKWOOD -> CONFIG_ARCH_KIRKWOOD
 machine-$(CONFIG_KIRKWOOD)		+= kirkwood

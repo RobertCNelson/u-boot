@@ -34,6 +34,7 @@ obj-$(CONFIG_CMD_CACHE) += cache.o
 obj-$(CONFIG_CMD_CBFS) += cbfs.o
 obj-$(CONFIG_CMD_CLK) += clk.o
 obj-$(CONFIG_CMD_CONFIG) += config.o
+obj-$(CONFIG_CMD_CONITRACE) += conitrace.o
 obj-$(CONFIG_CMD_CONSOLE) += console.o
 obj-$(CONFIG_CMD_CPU) += cpu.o
 obj-$(CONFIG_DATAFLASH_MMC_SELECT) += dataflash_mmc_mux.o
@@ -163,12 +164,13 @@ obj-$(CONFIG_CMD_BLOB) += blob.o
 obj-$(CONFIG_CMD_AVB) += avb.o
 
 obj-$(CONFIG_X86) += x86/
+
+obj-$(CONFIG_ARCH_MVEBU) += mvebu/
 endif # !CONFIG_SPL_BUILD
 
 # core command
 obj-y += nvedit.o
 
-obj-$(CONFIG_ARCH_MVEBU) += mvebu/
 obj-$(CONFIG_TI_COMMON_CMD_OPTIONS) += ti/
 
 filechk_data_gz = (echo "static const char data_gz[] ="; cat $< | scripts/bin2c; echo ";")

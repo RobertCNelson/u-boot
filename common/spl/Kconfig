@@ -171,7 +171,7 @@ config SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR
 	default 0x140 if ARCH_MVEBU
 	default 0x200 if ARCH_SOCFPGA || ARCH_AT91
 	default 0x300 if ARCH_ZYNQ || ARCH_KEYSTONE || OMAP34XX || OMAP44XX || \
-		         OMAP54XX || AM33XX || AM43XX
+		         OMAP54XX || AM33XX || AM43XX || ARCH_K3
 	default 0x4000 if ARCH_ROCKCHIP
 	help
 	  Address on the MMC to load U-Boot from, when the MMC is being used
@@ -430,6 +430,14 @@ config SPL_LIBGENERIC_SUPPORT
 	  boards. Enable this option to build the code in lib/ as part of an
 	  SPL build.
 
+config SPL_DM_MAILBOX
+	bool "Support Mailbox"
+	help
+	  Enable support for Mailbox within SPL. This enable the inter
+	  processor communication protocols tobe used within SPL. Enable
+	  this option to build the drivers in drivers/mailbox as part of
+	  SPL build.
+
 config SPL_MMC_SUPPORT
 	bool "Support MMC"
 	depends on MMC
@@ -633,6 +641,12 @@ config SPL_RAM_DEVICE
 	  Enable booting of an image already loaded in RAM. The image has to
 	  be already in memory when SPL takes over, e.g. loaded by the boot
 	  ROM.
+
+config SPL_REMOTEPROC
+	bool "Support REMOTEPROCS"
+	help
+	  Enable support for REMOTEPROCs in SPL. This permits to load
+	  a remote processor firmware in SPL.
 
 config SPL_RTC_SUPPORT
 	bool "Support RTC drivers"
