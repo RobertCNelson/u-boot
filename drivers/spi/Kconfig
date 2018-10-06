@@ -18,6 +18,13 @@ config DM_SPI
 
 if DM_SPI
 
+config SPI_MEM
+	bool "SPI memory extension"
+	help
+	  Enable this option if you want to enable the SPI memory extension.
+	  This extension is meant to simplify interaction with SPI memories
+	  by providing an high-level interface to send memory-like commands.
+
 config ALTERA_SPI
 	bool "Altera SPI driver"
 	help
@@ -108,6 +115,14 @@ config ICH_SPI
 	  Enable the Intel ICH SPI driver. This driver can be used to
 	  access the SPI NOR flash on platforms embedding this Intel
 	  ICH IP core.
+
+config MT7621_SPI
+	bool "MediaTek MT7621 SPI driver"
+	depends on ARCH_MT7620
+	help
+	  Enable the MT7621 SPI driver. This driver can be used to access
+	  the SPI NOR flash on platforms embedding this Ralink / MediaTek
+	  SPI core, like MT7621/7628/7688.
 
 config MVEBU_A3700_SPI
 	bool "Marvell Armada 3700 SPI driver"

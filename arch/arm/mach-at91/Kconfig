@@ -151,6 +151,7 @@ config TARGET_SAMA5D2_PTC_EK
 	bool "SAMA5D2 PTC EK board"
 	select BOARD_EARLY_INIT_F
 	select SAMA5D2
+	select BOARD_LATE_INIT
 
 config TARGET_SAMA5D2_XPLAINED
 	bool "SAMA5D2 Xplained board"
@@ -177,6 +178,7 @@ config TARGET_SAMA5D3_XPLAINED
 	select BOARD_EARLY_INIT_F
 	select SAMA5D3
 	select SUPPORT_SPL
+	select BOARD_LATE_INIT
 
 config TARGET_SAMA5D3XEK
 	bool "SAMA5D3X-EK board"

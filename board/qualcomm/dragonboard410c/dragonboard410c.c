@@ -44,7 +44,7 @@ int dram_init_banksize(void)
 	return 0;
 }
 
-int board_prepare_usb(enum usb_init_type type)
+int board_usb_init(int index, enum usb_init_type init)
 {
 	static struct udevice *pmic_gpio;
 	static struct gpio_desc hub_reset, usb_sel;
@@ -93,7 +93,7 @@ int board_prepare_usb(enum usb_init_type type)
 		}
 	}
 
-	if (type == USB_INIT_HOST) {
+	if (init == USB_INIT_HOST) {
 		/* Start USB Hub */
 		dm_gpio_set_dir_flags(&hub_reset,
 				      GPIOD_IS_OUT | GPIOD_IS_OUT_ACTIVE);
@@ -140,7 +140,8 @@ int misc_init_r(void)
 
 	if (dm_gpio_get_value(&resin)) {
 		env_set("bootdelay", "-1");
-		printf("Power button pressed - dropping to console.\n");
+		env_set("bootcmd", "fastboot 0");
+		printf("key_vol_down pressed - Starting fastboot.\n");
 	}
 
 	return 0;
@@ -148,6 +149,16 @@ int misc_init_r(void)
 
 int board_init(void)
 {
+	return 0;
+}
+
+int board_late_init(void)
+{
+	char serial[16];
+
+	memset(serial, 0, 16);
+	snprintf(serial, 13, "%x", msm_board_serial());
+	env_set("serial#", serial);
 	return 0;
 }
 

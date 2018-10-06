@@ -104,6 +104,10 @@ static struct usb_ep_ops ci_ep_ops = {
 	.free_request   = ci_ep_free_request,
 };
 
+__weak void ci_init_after_reset(struct ehci_ctrl *ctrl)
+{
+}
+
 /* Init values for USB endpoints. */
 static const struct usb_ep ci_ep_init[5] = {
 	[0] = {	/* EP 0 */
@@ -887,6 +891,8 @@ static int ci_pullup(struct usb_gadget *gadget, int is_on)
 		writel(USBCMD_ITC(MICRO_8FRAME) | USBCMD_RST, &udc->usbcmd);
 		udelay(200);
 
+		ci_init_after_reset(controller.ctrl);
+
 		writel((unsigned long)controller.epts, &udc->epinitaddr);
 
 		/* select DEVICE mode */
@@ -900,7 +906,8 @@ static int ci_pullup(struct usb_gadget *gadget, int is_on)
 		writel(0xffffffff, &udc->epflush);
 
 		/* Turn on the USB connection by enabling the pullup resistor */
-		writel(USBCMD_ITC(MICRO_8FRAME) | USBCMD_RUN, &udc->usbcmd);
+		setbits_le32(&udc->usbcmd, USBCMD_ITC(MICRO_8FRAME) |
+			     USBCMD_RUN);
 	} else {
 		udc_disconnect();
 	}

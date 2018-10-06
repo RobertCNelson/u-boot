@@ -93,10 +93,12 @@ obj-$(CONFIG_CMD_MISC) += misc.o
 obj-$(CONFIG_CMD_MMC) += mmc.o
 obj-$(CONFIG_CMD_MMC_SPI) += mmc_spi.o
 obj-$(CONFIG_MP) += mp.o
+obj-$(CONFIG_CMD_MTD) += mtd.o
 obj-$(CONFIG_CMD_MTDPARTS) += mtdparts.o
 obj-$(CONFIG_CMD_NAND) += nand.o
 obj-$(CONFIG_CMD_NET) += net.o
 obj-$(CONFIG_CMD_ONENAND) += onenand.o
+obj-$(CONFIG_CMD_OSD) += osd.o
 obj-$(CONFIG_CMD_PART) += part.o
 ifdef CONFIG_PCI
 obj-$(CONFIG_CMD_PCI) += pci.o
@@ -146,6 +148,7 @@ obj-$(CONFIG_CMD_THOR_DOWNLOAD) += thordown.o
 obj-$(CONFIG_CMD_XIMG) += ximg.o
 obj-$(CONFIG_CMD_YAFFS2) += yaffs2.o
 obj-$(CONFIG_CMD_SPL) += spl.o
+obj-$(CONFIG_CMD_W1) += w1.o
 obj-$(CONFIG_CMD_ZIP) += zip.o
 obj-$(CONFIG_CMD_ZFS) += zfs.o
 

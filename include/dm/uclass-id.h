@@ -30,6 +30,7 @@ enum uclass_id {
 	UCLASS_ADC,		/* Analog-to-digital converter */
 	UCLASS_AHCI,		/* SATA disk controller */
 	UCLASS_BLK,		/* Block device */
+	UCLASS_BOARD,		/* Device information from hardware */
 	UCLASS_CLK,		/* Clock source, e.g. used by peripherals */
 	UCLASS_CPU,		/* CPU, typically part of an SoC */
 	UCLASS_CROS_EC,		/* Chrome OS EC */
@@ -37,6 +38,7 @@ enum uclass_id {
 	UCLASS_DMA,		/* Direct Memory Access */
 	UCLASS_EFI,		/* EFI managed devices */
 	UCLASS_ETH,		/* Ethernet device */
+	UCLASS_FS_FIRMWARE_LOADER,		/* Generic loader */
 	UCLASS_GPIO,		/* Bank of general-purpose I/O pins */
 	UCLASS_FIRMWARE,	/* Firmware */
 	UCLASS_I2C,		/* I2C bus */
@@ -92,6 +94,9 @@ enum uclass_id {
 	UCLASS_VIDEO,		/* Video or LCD device */
 	UCLASS_VIDEO_BRIDGE,	/* Video bridge, e.g. DisplayPort to LVDS */
 	UCLASS_VIDEO_CONSOLE,	/* Text console driver for video device */
+	UCLASS_VIDEO_OSD,	/* On-screen display */
+	UCLASS_W1,		/* Dallas 1-Wire bus */
+	UCLASS_W1_EEPROM,	/* one-wire EEPROMs */
 	UCLASS_WDT,		/* Watchdot Timer driver */
 
 	UCLASS_COUNT,

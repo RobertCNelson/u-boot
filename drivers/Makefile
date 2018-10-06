@@ -6,7 +6,7 @@ obj-$(CONFIG_$(SPL_TPL_)DRIVERS_MISC_SUPPORT) += misc/ sysreset/ firmware/
 obj-$(CONFIG_$(SPL_TPL_)I2C_SUPPORT) += i2c/
 obj-$(CONFIG_$(SPL_TPL_)LED) += led/
 obj-$(CONFIG_$(SPL_TPL_)MMC_SUPPORT) += mmc/
-obj-$(CONFIG_$(SPL_TPL_)NAND_SUPPORT) += mtd/nand/
+obj-$(CONFIG_$(SPL_TPL_)NAND_SUPPORT) += mtd/nand/raw/
 obj-$(CONFIG_$(SPL_TPL_)PHY) += phy/
 obj-$(CONFIG_$(SPL_TPL_)PINCTRL) += pinctrl/
 obj-$(CONFIG_$(SPL_TPL_)RAM) += ram/
@@ -71,6 +71,7 @@ obj-y += ata/
 obj-$(CONFIG_DM_DEMO) += demo/
 obj-$(CONFIG_BIOSEMU) += bios_emulator/
 obj-y += block/
+obj-y += board/
 obj-$(CONFIG_BOOTCOUNT_LIMIT) += bootcount/
 obj-$(CONFIG_CPU) += cpu/
 obj-y += crypto/
@@ -105,6 +106,8 @@ obj-y += smem/
 obj-y += soc/
 obj-y += thermal/
 obj-y += axi/
+obj-$(CONFIG_W1) += w1/
+obj-$(CONFIG_W1_EEPROM) += w1-eeprom/
 
 obj-$(CONFIG_MACH_PIC32) += ddr/microchip/
 endif

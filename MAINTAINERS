@@ -210,6 +210,7 @@ S:	Maintained
 F:	arch/arm/mach-snapdragon/
 F:	drivers/gpio/msm_gpio.c
 F:	drivers/mmc/msm_sdhci.c
+F:	drivers/phy/msm8916-usbh-phy.c
 F:	drivers/serial/serial_msm.c
 F:	drivers/smem/msm_smem.c
 F:	drivers/usb/host/ehci-msm.c
@@ -298,7 +299,7 @@ F:	drivers/i2c/i2c-cdns.c
 F:	drivers/i2c/muxes/pca954x.c
 F:	drivers/i2c/zynq_i2c.c
 F:	drivers/mmc/zynq_sdhci.c
-F:	drivers/mtd/nand/zynq_nand.c
+F:	drivers/mtd/nand/raw/zynq_nand.c
 F:	drivers/net/phy/xilinx_phy.c
 F:	drivers/net/zynq_gem.c
 F:	drivers/serial/serial_zynq.c
@@ -322,7 +323,7 @@ F:	drivers/i2c/i2c-cdns.c
 F:	drivers/i2c/muxes/pca954x.c
 F:	drivers/i2c/zynq_i2c.c
 F:	drivers/mmc/zynq_sdhci.c
-F:	drivers/mtd/nand/zynq_nand.c
+F:	drivers/mtd/nand/raw/zynq_nand.c
 F:	drivers/net/phy/xilinx_phy.c
 F:	drivers/net/zynq_gem.c
 F:	drivers/serial/serial_zynq.c
@@ -383,12 +384,16 @@ T:	git git://github.com/agraf/u-boot.git
 F:	doc/README.uefi
 F:	doc/README.iscsi
 F:	Documentation/efi.rst
+F:	include/capitalization.h
+F:	include/cp1250.h
+F:	include/cp437.h
 F:	include/efi*
 F:	include/pe.h
 F:	include/asm-generic/pe.h
 F:	lib/charset.c
 F:	lib/efi*/
 F:	test/py/tests/test_efi*
+F:	test/unicode_ut.c
 F:	cmd/bootefi.c
 F:	tools/file2include.c
 
@@ -436,6 +441,12 @@ F:	cmd/log.c
 F:	test/log/log_test.c
 F:	test/py/tests/test_log.py
 
+MALI DISPLAY PROCESSORS
+M:	Liviu Dudau <liviu.dudau@foss.arm.com>
+S:	Supported
+T:	git git://github.com/ARM-software/u-boot.git
+F:	drivers/video/mali_dp.c
+
 MICROBLAZE
 M:	Michal Simek <monstr@monstr.eu>
 S:	Maintained
@@ -467,7 +478,7 @@ NAND FLASH
 #M:	Scott Wood <oss@buserror.net>
 S:	Orphaned (Since 2018-07)
 T:	git git://git.denx.de/u-boot-nand-flash.git
-F:	drivers/mtd/nand/
+F:	drivers/mtd/nand/raw/
 
 NDS32
 M:	Macpaul Lin <macpaul@andestech.com>
@@ -585,6 +596,11 @@ S:	Maintained
 F:	drivers/spmi/
 F:	include/spmi/
 
+TDA19988 HDMI ENCODER
+M:	Liviu Dudau <liviu.dudau@foss.arm.com>
+S:	Maintained
+F:	drivers/video/tda19988.c
+
 TI SYSTEM SECURITY
 M:	Andrew F. Davis <afd@ti.com>
 S:	Supported
@@ -632,6 +648,7 @@ T:	git git://git.denx.de/u-boot-video.git
 F:	drivers/video/
 F:	common/lcd*.c
 F:	include/lcd*.h
+F:	include/video*.h
 
 X86
 M:	Simon Glass <sjg@chromium.org>
