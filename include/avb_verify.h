@@ -9,6 +9,7 @@
 #define _AVB_VERIFY_H
 
 #include <../lib/libavb/libavb.h>
+#include <mapmem.h>
 #include <mmc.h>
 
 #define AVB_MAX_ARGS			1024
@@ -27,6 +28,10 @@ struct AvbOpsData {
 	struct AvbOps ops;
 	int mmc_dev;
 	enum avb_boot_state boot_state;
+#ifdef CONFIG_OPTEE_TA_AVB
+	struct udevice *tee;
+	u32 session;
+#endif
 };
 
 struct mmc_part {
@@ -72,7 +77,7 @@ static inline size_t get_sector_buf_size(void)
 
 static inline void *get_sector_buf(void)
 {
-	return (void *)CONFIG_FASTBOOT_BUF_ADDR;
+	return map_sysmem(CONFIG_FASTBOOT_BUF_ADDR, CONFIG_FASTBOOT_BUF_SIZE);
 }
 
 static inline bool is_buf_unaligned(void *buffer)

@@ -25,6 +25,7 @@ obj-$(CONFIG_DM_MAILBOX) += mailbox.o
 obj-$(CONFIG_DM_MMC) += mmc.o
 obj-y += ofnode.o
 obj-$(CONFIG_OSD) += osd.o
+obj-$(CONFIG_DM_VIDEO) += panel.o
 obj-$(CONFIG_DM_PCI) += pci.o
 obj-$(CONFIG_PHY) += phy.o
 obj-$(CONFIG_POWER_DOMAIN) += power-domain.o
@@ -51,4 +52,5 @@ obj-$(CONFIG_AXI) += axi.o
 obj-$(CONFIG_MISC) += misc.o
 obj-$(CONFIG_DM_SERIAL) += serial.o
 obj-$(CONFIG_CPU) += cpu.o
+obj-$(CONFIG_TEE) += tee.o
 endif
