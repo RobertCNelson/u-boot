@@ -262,8 +262,8 @@
 
 &reg_dcdc1 {
 	regulator-always-on;
-	regulator-min-microvolt = <3000000>;
-	regulator-max-microvolt = <3000000>;
+	regulator-min-microvolt = <3300000>;
+	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-3v0";
 };
 
@@ -283,14 +283,14 @@
 
 &reg_dcdc5 {
 	regulator-always-on;
-	regulator-min-microvolt = <1500000>;
-	regulator-max-microvolt = <1500000>;
+	regulator-min-microvolt = <1425000>;
+	regulator-max-microvolt = <1575000>;
 	regulator-name = "vcc-dram";
 };
 
 &reg_dldo1 {
-	regulator-min-microvolt = <1800000>;
-	regulator-max-microvolt = <3300000>;
+	regulator-min-microvolt = <1700000>;
+	regulator-max-microvolt = <3600000>;
 	regulator-name = "vcc-wifi-io";
 };
 
@@ -303,15 +303,15 @@
 
 &reg_dldo2 {
 	regulator-always-on;
-	regulator-min-microvolt = <3300000>;
-	regulator-max-microvolt = <3300000>;
+	regulator-min-microvolt = <3000000>;
+	regulator-max-microvolt = <4800000>;
 	regulator-name = "vcc-wifi";
 };
 
 &reg_dldo3 {
 	regulator-always-on;
-	regulator-min-microvolt = <3300000>;
-	regulator-max-microvolt = <3300000>;
+	regulator-min-microvolt = <3000000>;
+	regulator-max-microvolt = <4800000>;
 	regulator-name = "vcc-wifi-2";
 };
 
@@ -345,7 +345,7 @@
 
 &uart3 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&uart3_pg_pins>, <&uart3_rts_cts_pg_pins>;
+	pinctrl-0 = <&uart3_pins>, <&uart3_rts_cts_pins>;
 	uart-has-rtscts;
 	status = "okay";
 

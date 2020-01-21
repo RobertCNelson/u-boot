@@ -43,6 +43,10 @@
 #ifndef _DT_BINDINGS_CLK_SUN8I_R40_H_
 #define _DT_BINDINGS_CLK_SUN8I_R40_H_
 
+#define CLK_PLL_VIDEO0		7
+
+#define CLK_PLL_VIDEO1		16
+
 #define CLK_CPU			24
 
 #define CLK_BUS_MIPI_DSI	29
@@ -121,7 +125,6 @@
 #define CLK_BUS_UART6		102
 #define CLK_BUS_UART7		103
 #define CLK_BUS_DBG		104
-
 #define CLK_THS			105
 #define CLK_NAND		106
 #define CLK_MMC0		107
@@ -172,7 +175,7 @@
 #define CLK_AVS			152
 #define CLK_HDMI		153
 #define CLK_HDMI_SLOW		154
-
+#define CLK_MBUS		155
 #define CLK_DSI_DPHY		156
 #define CLK_TVE0		157
 #define CLK_TVE1		158
