@@ -73,6 +73,7 @@ enum sun4i_usb_phy_type {
 	sun8i_a33_phy,
 	sun8i_a83t_phy,
 	sun8i_h3_phy,
+	sun8i_r40_phy
 	sun8i_v3s_phy,
 	sun50i_a64_phy,
 	sun50i_h6_phy,
@@ -569,6 +570,16 @@ static const struct sun4i_usb_phy_cfg sun8i_h3_cfg = {
 	.dedicated_clocks = true,
 	.enable_pmu_unk1 = true,
 	.phy0_dual_route = true,
+};
+
+static const struct sun4i_usb_phy_cfg sun8i_r40_cfg = {
+        .num_phys = 3,
+        .type = sun8i_r40_phy,
+        .disc_thresh = 3,
+        .phyctl_offset = REG_PHYCTL_A33,
+        .dedicated_clocks = true,
+        .enable_pmu_unk1 = true,
+        .phy0_dual_route = true,
 };
 
 static const struct sun4i_usb_phy_cfg sun8i_v3s_cfg = {
