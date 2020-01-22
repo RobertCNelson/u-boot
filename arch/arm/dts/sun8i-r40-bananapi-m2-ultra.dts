@@ -43,7 +43,7 @@
 
 /dts-v1/;
 #include "sun8i-r40.dtsi"
-/*#include "sunxi-common-regulators.dtsi"*/
+#include "sunxi-common-regulators.dtsi"
 
 #include <dt-bindings/gpio/gpio.h>
 
