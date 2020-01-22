@@ -73,7 +73,7 @@ enum sun4i_usb_phy_type {
 	sun8i_a33_phy,
 	sun8i_a83t_phy,
 	sun8i_h3_phy,
-	sun8i_r40_phy
+	sun8i_r40_phy,
 	sun8i_v3s_phy,
 	sun50i_a64_phy,
 	sun50i_h6_phy,
