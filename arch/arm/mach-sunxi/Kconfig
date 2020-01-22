@@ -251,6 +251,8 @@ config MACH_SUN8I_R40
 	select SUNXI_DRAM_DW
 	select SUNXI_DRAM_DW_32BIT
 	select PHY_SUN4I_USB
+	select MACH_SUNXI_R40
+	select SUNXI_DE2
 
 config MACH_SUN8I_V3S
 	bool "sun8i (Allwinner V3s)"
@@ -672,6 +674,7 @@ config USB1_VBUS_PIN
 	string "Vbus enable pin for usb1 (ehci0)"
 	default "PH6" if MACH_SUN4I || MACH_SUN7I
 	default "PH27" if MACH_SUN6I
+	default "PH23" if MACH_SUN8i_R40
 	---help---
 	Set the Vbus enable pin for usb1 (ehci0, usb0 is the otg). This takes
 	a string in the format understood by sunxi_name_to_gpio, e.g.
@@ -681,6 +684,7 @@ config USB2_VBUS_PIN
 	string "Vbus enable pin for usb2 (ehci1)"
 	default "PH3" if MACH_SUN4I || MACH_SUN7I
 	default "PH24" if MACH_SUN6I
+	default "PH23" if MACH_SUN8i_R40
 	---help---
 	See USB1_VBUS_PIN help text.
 
