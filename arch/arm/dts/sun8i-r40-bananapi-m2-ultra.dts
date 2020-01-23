@@ -376,4 +376,3 @@
 	usb2_vbus-supply = <&reg_vcc5v0>;
 	status = "okay";
 };
-
