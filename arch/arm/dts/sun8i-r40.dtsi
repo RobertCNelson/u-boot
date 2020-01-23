@@ -115,6 +115,28 @@
 		#address-cells = <1>;
 		#size-cells = <1>;
 		ranges;
+		
+		system-control@1c00000 {
+			compatible = "allwinner,sun8i-a20-system-control";
+			reg = <0x01c00000 0x30>;
+			#address-cells = <1>;
+			#size-cells = <1>;
+			ranges;
+
+			sram_c: sram@1d00000 {
+				compatible = "mmio-sram";
+				reg = <0x01d00000 0x80000>;
+				#address-cells = <1>;
+				#size-cells = <1>;
+				ranges = <0 0x01d00000 0x80000>;
+
+				ve_sram: sram-section@0 {
+					compatible = "allwinner,sun7i-a20-sram-c1",
+						     "allwinner,sun4i-a10-sram-c1";
+					reg = <0x000000 0x80000>;
+				};
+			};
+		};
 
 		display_clocks: clock@1000000 {
 			compatible = "allwinner,sun8i-r40-de2-clk",
@@ -611,6 +633,7 @@
 			clock-names = "ahb", "mod", "ram";
 			resets = <&ccu RST_BUS_VE>;
 			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
+			allwinner,sram = <&ve_sram 1>;
 		};
 
 		uart0: serial@1c28000 {
