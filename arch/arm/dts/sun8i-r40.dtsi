@@ -115,7 +115,7 @@
 		#address-cells = <1>;
 		#size-cells = <1>;
 		ranges;
-		
+
 		system-control@1c00000 {
 			compatible = "allwinner,sun8i-h3-system-control";
 			reg = <0x01c00000 0x30>;
@@ -311,7 +311,7 @@
 			clock-names = "bus", "mod";
 			resets = <&ccu RST_BUS_CE>;
 		};
-		
+
 		ehci1: usb@1c19000 {
 			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
 			reg = <0x01c19000 0x100>;
@@ -392,7 +392,6 @@
 				function = "clk_out_a";
 			};
 
-			
 			csi0_8bits_pins: csi0-8bits-pins {
 				pins = "PE0", "PE2", "PE3", "PE4", "PE5",
 				       "PE6", "PE7", "PE8", "PE9", "PE10",
@@ -400,7 +399,6 @@
 				function = "csi0";
 			};
 
-			
 			csi0_mclk_pin: csi0-mclk-pin {
 				pins = "PE1";
 				function = "csi0";
@@ -443,13 +441,13 @@
 				pins = "PI2", "PI3";
 				function = "i2c4";
 			};
-			
+
 			ir0_rx_pins: ir0-rx-pins {
 				pins = "PB4";
 				function = "ir0";
 			};
 
-            ir1_rx_pins: ir1-rx-pins {
+            		ir1_rx_pins: ir1-rx-pins {
 				pins = "PB23";
 				function = "ir1";
 			};
@@ -479,31 +477,26 @@
 				bias-pull-up;
 			};
 
-			
 			spi0_pc_pins: spi0-pc-pins {
 				pins = "PC0", "PC1", "PC2";
 				function = "spi0";
 			};
 
-			
 			spi0_cs0_pc_pin: spi0-cs0-pc-pin {
 				pins = "PC23";
 				function = "spi0";
 			};
 
-			
 			spi1_pi_pins: spi1-pi-pins {
 				pins = "PI17", "PI18", "PI19";
 				function = "spi1";
 			};
 
-			
 			spi1_cs0_pi_pin: spi1-cs0-pi-pin {
 				pins = "PI16";
 				function = "spi1";
 			};
 
-			
 			spi1_cs1_pi_pin: spi1-cs1-pi-pin {
 				pins = "PI15";
 				function = "spi1";
@@ -513,12 +506,12 @@
 				pins = "PB22", "PB23";
 				function = "uart0";
 			};
-			
+
 			uart2_pi_pins: uart2-pi-pins {
 				pins = "PI18", "PI19";
 				function = "uart2";
 			};
-			
+
 			uart2_rts_cts_pi_pins: uart2-rts-cts-pi-pins {
 				pins = "PI16", "PI17";
 				function = "uart2";
@@ -533,9 +526,8 @@
 				pins = "PG8", "PG9";
 				function = "uart3";
 			};
-			
 		};
-		
+
 		ir0: ir@1c21800 {
 			compatible = "allwinner,sun8i-r40-ir",
 				"allwinner,sun6i-a31-ir";
@@ -548,7 +540,7 @@
 			pinctrl-0 = <&ir0_rx_pins>;
 			status = "disabled";
 		};
-			
+
 		ir1: ir@1c21c00 {
 			compatible = "allwinner,sun8i-r40-ir",
 				"allwinner,sun6i-a31-ir";
@@ -568,7 +560,7 @@
 			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
 			clocks = <&osc24M>;
 		};
-		
+
 		dma: dma-controller@01c02000 {
 			compatible = "allwinner,sun8i-h3-dma";
 			reg = <0x01c02000 0x1000>;
@@ -577,7 +569,7 @@
 			resets = <&ccu RST_BUS_DMA>;
 			#dma-cells = <1>;
 		};
-		
+
 		codec: codec@01c22c00 {
 			#sound-dai-cells = <0>;
 			compatible = "allwinner,sun8i-h3-codec";
@@ -595,12 +587,12 @@
 				"MIC1", "Mic";
 			status = "okay";
 		};
-		
+
 		codec_analog: codec-analog@01c22f00 {
 			compatible = "allwinner,sun8i-a23-codec-analog";
 			reg = <0x01c22f00 0x4>;
 		};
-		
+
 		mali: gpu@1c40000 {
 			compatible = "allwinner,sun8i-r40-mali",
 				     "allwinner,sun8i-a20-mali",
@@ -624,7 +616,7 @@
 			clock-names = "bus", "core";
 			resets = <&ccu RST_BUS_GPU>;
 		};
-		
+
 		video-codec@1c0e000 {
 			compatible = "allwinner,sun8i-h3-video-engine";
 			reg = <0x01c0e000 0x1000>;
