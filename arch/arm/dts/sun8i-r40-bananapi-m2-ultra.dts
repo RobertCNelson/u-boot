@@ -216,6 +216,11 @@
 	bus-width = <4>;
 	non-removable;
 	status = "okay";
+
+        sdio_wifi: sdio_wifi@1 {
+		reg = <1>;
+		compatible = "brcm,bcm4329-fmac";
+	};
 };
 
 &mmc2 {
@@ -242,7 +247,7 @@
 	vcc-pd-supply = <&reg_dcdc1>;
 	vcc-pe-supply = <&reg_eldo1>;
 	vcc-pf-supply = <&reg_dcdc1>;
-	vcc-pg-supply = <&reg_dldo1>;
+	vcc-wifi-io-supply = <&reg_dldo1>;
 };
 
 &reg_aldo2 {
@@ -293,9 +298,9 @@
 };
 
 &reg_dldo1 {
-	regulator-min-microvolt = <3000000>;
-	regulator-max-microvolt = <3000000>;
-	regulator-name = "vcc-wifi-io";
+	regulator-min-microvolt = <1800000>;
+	regulator-max-microvolt = <3300000>;
+	regulator-name = "vcc-pg";
 };
 
 /*
