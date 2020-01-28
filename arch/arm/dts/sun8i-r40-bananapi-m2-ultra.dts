@@ -216,11 +216,6 @@
 	bus-width = <4>;
 	non-removable;
 	status = "okay";
-	
-	brcmf: wifi@1 {
-		reg = <1>;
-		compatible = "brcm,bcm4329-fmac";
-	};
 };
 
 &mmc2 {
@@ -298,8 +293,8 @@
 };
 
 &reg_dldo1 {
-	regulator-min-microvolt = <1800000>;
-	regulator-max-microvolt = <3300000>;
+	regulator-min-microvolt = <3000000>;
+	regulator-max-microvolt = <3000000>;
 	regulator-name = "vcc-wifi-io";
 };
 
