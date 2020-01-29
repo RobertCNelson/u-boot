@@ -464,7 +464,7 @@
 				function = "ir0";
 			};
 
-            		ir1_rx_pins: ir1-rx-pins {
+            ir1_rx_pins: ir1-rx-pins {
 				pins = "PB23";
 				function = "ir1";
 			};

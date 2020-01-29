@@ -53,8 +53,8 @@
 	aliases {
 		ethernet0 = &gmac;
 		serial0 = &uart0;
-		serial3 = &uart3;
 		serial2 = &uart2;
+		serial3 = &uart3;
 		i2c0 = &i2c0;
 		i2c1 = &i2c1;
 		i2c2 = &i2c2;
@@ -360,6 +360,7 @@
 
 	bluetooth {
 		compatible = "brcm,bcm43438-bt";
+		max-speed = <1500000>;
 		clocks = <&ccu CLK_OUT_A>;
 		clock-names = "lpo";
 		vbat-supply = <&reg_dldo2>;
@@ -367,7 +368,6 @@
 		device-wakeup-gpios = <&pio 6 11 GPIO_ACTIVE_HIGH>; /* PG11 */
 		/* TODO host wake line connected to PMIC GPIO pins */
 		shutdown-gpios = <&pio 7 12 GPIO_ACTIVE_HIGH>; /* PH12 */
-		max-speed = <1500000>;
 	};
 };
 
