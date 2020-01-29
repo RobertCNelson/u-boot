@@ -53,8 +53,8 @@
 	aliases {
 		ethernet0 = &gmac;
 		serial0 = &uart0;
+		serial1 = &uart3;
 		serial2 = &uart2;
-		serial3 = &uart3;
 		i2c0 = &i2c0;
 		i2c1 = &i2c1;
 		i2c2 = &i2c2;
