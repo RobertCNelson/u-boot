@@ -404,6 +404,11 @@
 			#interrupt-cells = <3>;
 			#gpio-cells = <3>;
 
+			clk_out_a_pin: clk-out-a-pin {
+				pins = "PI12";
+				function = "clk_out_a";
+			};
+			
 			csi0_8bits_pins: csi0-8bits-pins {
 				pins = "PE0", "PE2", "PE3", "PE4", "PE5",
 				       "PE6", "PE7", "PE8", "PE9", "PE10",

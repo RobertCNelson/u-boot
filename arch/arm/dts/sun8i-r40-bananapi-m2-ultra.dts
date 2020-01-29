@@ -221,9 +221,6 @@
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
 		interrupt-names = "host-wake";
-		clocks = <&clk_out_a>;
-		pinctrl-0 = <&clk_out_a_pin>;
-		pinctrl-names = "default";
 	};
 };
 
