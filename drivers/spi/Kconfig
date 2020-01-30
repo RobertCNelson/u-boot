@@ -84,7 +84,8 @@ config ATMEL_SPI
 
 config BCM63XX_HSSPI
 	bool "BCM63XX HSSPI driver"
-	depends on (ARCH_BMIPS || ARCH_BCM6858 || ARCH_BCM63158)
+	depends on (ARCH_BMIPS || ARCH_BCM68360 || \
+		    ARCH_BCM6858 || ARCH_BCM63158)
 	help
 	  Enable the BCM6328 HSSPI driver. This driver can be used to
 	  access the SPI NOR flash on platforms embedding this Broadcom
@@ -190,6 +191,13 @@ config MVEBU_A3700_SPI
 	  Enable the Marvell Armada 3700 SPI driver. This driver can be
 	  used to access the SPI NOR flash on platforms embedding this
 	  Marvell IP core.
+
+config NXP_FSPI
+	bool "NXP FlexSPI driver"
+	depends on SPI_MEM
+	help
+	  Enable the NXP FlexSPI (FSPI) driver. This driver can be used to
+	  access the SPI NOR flash on platforms embedding this NXP IP core.
 
 config PIC32_SPI
 	bool "Microchip PIC32 SPI driver"

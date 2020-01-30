@@ -633,6 +633,12 @@ config ARCH_BCM63158
 	select OF_CONTROL
 	imply CMD_DM
 
+config ARCH_BCM68360
+	bool "Broadcom BCM68360 family"
+	select DM
+	select OF_CONTROL
+	imply CMD_DM
+
 config ARCH_BCM6858
 	bool "Broadcom BCM6858 family"
 	select DM
@@ -1009,6 +1015,24 @@ config ARCH_SUNXI
 	imply SPL_SERIAL_SUPPORT
 	imply USB_GADGET
 
+config ARCH_U8500
+	bool "ST-Ericsson U8500 Series"
+	select CPU_V7A
+	select DM
+	select DM_GPIO
+	select DM_MMC if MMC
+	select DM_SERIAL
+	select DM_USB if USB
+	select OF_CONTROL
+	select SYSRESET
+	select TIMER
+	imply ARM_PL180_MMCI
+	imply DM_RTC
+	imply NOMADIK_MTU_TIMER
+	imply PL01X_SERIAL
+	imply RTC_PL031
+	imply SYSRESET_SYSCON
+
 config ARCH_VERSAL
 	bool "Support Xilinx Versal Platform"
 	select ARM64
@@ -1117,7 +1141,6 @@ config TARGET_VEXPRESS64_JUNO
 config TARGET_LS2080A_EMU
 	bool "Support ls2080a_emu"
 	select ARCH_LS2080A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select FSL_DDR_SYNC_REFRESH
@@ -1130,7 +1153,6 @@ config TARGET_LS2080A_EMU
 config TARGET_LS2080A_SIMU
 	bool "Support ls2080a_simu"
 	select ARCH_LS2080A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select BOARD_LATE_INIT
@@ -1143,7 +1165,6 @@ config TARGET_LS2080A_SIMU
 config TARGET_LS1088AQDS
 	bool "Support ls1088aqds"
 	select ARCH_LS1088A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
@@ -1159,7 +1180,6 @@ config TARGET_LS1088AQDS
 config TARGET_LS2080AQDS
 	bool "Support ls2080aqds"
 	select ARCH_LS2080A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
@@ -1178,7 +1198,6 @@ config TARGET_LS2080AQDS
 config TARGET_LS2080ARDB
 	bool "Support ls2080ardb"
 	select ARCH_LS2080A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
@@ -1197,7 +1216,6 @@ config TARGET_LS2080ARDB
 config TARGET_LS2081ARDB
 	bool "Support ls2081ardb"
 	select ARCH_LS2080A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select BOARD_LATE_INIT
@@ -1211,7 +1229,6 @@ config TARGET_LS2081ARDB
 config TARGET_LX2160ARDB
 	bool "Support lx2160ardb"
 	select ARCH_LX2160A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
@@ -1225,7 +1242,6 @@ config TARGET_LX2160ARDB
 config TARGET_LX2160AQDS
 	bool "Support lx2160aqds"
 	select ARCH_LX2160A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
@@ -1348,7 +1364,6 @@ config TARGET_LS1028AQDS
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
 	select BOARD_LATE_INIT
-	select ARCH_MISC_INIT
 	help
 	  Support for Freescale LS1028AQDS platform
 	  The LS1028A Development System (QDS) is a high-performance
@@ -1370,7 +1385,6 @@ config TARGET_LS1028ARDB
 config TARGET_LS1088ARDB
 	bool "Support ls1088ardb"
 	select ARCH_LS1088A
-	select ARCH_MISC_INIT
 	select ARM64
 	select ARMV8_MULTIENTRY
 	select ARCH_SUPPORT_TFABOOT
@@ -1779,6 +1793,8 @@ source "arch/arm/mach-sunxi/Kconfig"
 
 source "arch/arm/mach-tegra/Kconfig"
 
+source "arch/arm/mach-u8500/Kconfig"
+
 source "arch/arm/mach-uniphier/Kconfig"
 
 source "arch/arm/cpu/armv7/vf610/Kconfig"
@@ -1808,6 +1824,7 @@ source "board/armltd/vexpress64/Kconfig"
 source "board/broadcom/bcm23550_w1d/Kconfig"
 source "board/broadcom/bcm28155_ap/Kconfig"
 source "board/broadcom/bcm963158/Kconfig"
+source "board/broadcom/bcm968360bg/Kconfig"
 source "board/broadcom/bcm968580xref/Kconfig"
 source "board/broadcom/bcmcygnus/Kconfig"
 source "board/broadcom/bcmnsp/Kconfig"

@@ -394,7 +394,7 @@ F:	arch/arm/mach-tegra/
 F:	arch/arm/include/asm/arch-tegra*/
 
 ARM TI
-M:	Tom Rini <trini@konsulko.com>
+M:	Lokesh Vutla <lokeshvutla@ti.com>
 S:	Maintained
 T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-ti.git
 F:	arch/arm/mach-davinci/
@@ -402,6 +402,14 @@ F:	arch/arm/mach-k3/
 F:	arch/arm/mach-keystone/
 F:	arch/arm/include/asm/arch-omap*/
 F:	arch/arm/include/asm/ti-common/
+
+ARM U8500
+M:	Stephan Gerhold <stephan@gerhold.net>
+R:	Linus Walleij <linus.walleij@linaro.org>
+S:	Maintained
+F:	arch/arm/dts/ste-*
+F:	arch/arm/mach-u8500/
+F:	drivers/timer/nomadik-mtu-timer.c
 
 ARM UNIPHIER
 M:	Masahiro Yamada <yamada.masahiro@socionext.com>
@@ -781,6 +789,15 @@ F:	arch/riscv/
 F:	cmd/riscv/
 F:	tools/prelink-riscv.c
 
+RNG
+M:	Sughosh Ganu <sughosh.ganu@linaro.org>
+R:	Heinrich Schuchardt <xypron.glpk@gmx.de>
+S:	Maintained
+F:	cmd/rng.c
+F:	drivers/rng/
+F:	drivers/virtio/virtio_rng.c
+F:	include/rng.h
+
 ROCKUSB
 M:	Eddie Cai <eddie.cai.linux@gmail.com>
 S:	Maintained
@@ -848,6 +865,8 @@ F:	configs/k2g_hs_evm_defconfig
 F:	configs/k2l_hs_evm_defconfig
 F:	configs/am65x_hs_evm_r5_defconfig
 F:	configs/am65x_hs_evm_a53_defconfig
+F:	configs/j721e_hs_evm_r5_defconfig
+F:	configs/j721e_hs_evm_a72_defconfig
 
 TQ GROUP
 #M:	Martin Krause <martin.krause@tq-systems.de>
