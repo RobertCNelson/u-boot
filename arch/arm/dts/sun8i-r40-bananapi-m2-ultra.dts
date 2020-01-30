@@ -153,6 +153,7 @@
 };
 
 &hdmi {
+	hvcc-supply = <&reg_dcdc1>;
 	status = "okay";
 };
 
