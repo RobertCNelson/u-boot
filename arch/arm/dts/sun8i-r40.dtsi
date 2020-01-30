@@ -58,6 +58,14 @@
 		#size-cells = <1>;
 		ranges;
 
+		clk_out_a: clk@01c201f0 {
+			#clock-cells = <0>;
+			compatible = "allwinner,sun7i-a20-out-clk";
+			reg = <0x01c201f0 0x4>;
+			clocks = <&osc24M_32k>, <&osc32k>, <&osc24M>;
+			clock-output-names = "clk_out_a";
+		};
+
 		osc24M: osc24M {
 			#clock-cells = <0>;
 			compatible = "fixed-clock";
@@ -81,14 +89,6 @@
 			clock-mult = <1>;
 			clocks = <&osc24M>;
 			clock-output-names = "osc24M_32k";
-		};
-
-		clk_out_a: clk@01c201f0 {
-			#clock-cells = <0>;
-			compatible = "allwinner,sun7i-a20-out-clk";
-			reg = <0x01c201f0 0x4>;
-			clocks = <&osc24M_32k>, <&osc32k>, <&osc24M>;
-			clock-output-names = "clk_out_a";
 		};
 	};
 
@@ -127,32 +127,85 @@
 		status = "disabled";
 	};
 
+	pmu {
+		compatible = "arm,cortex-a7-pmu";
+		interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>,
+			     <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
+		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
+	};
+
 	soc {
 		compatible = "simple-bus";
 		#address-cells = <1>;
 		#size-cells = <1>;
 		ranges;
 
-		system-control@1c00000 {
-			compatible = "allwinner,sun8i-h3-system-control";
-			reg = <0x01c00000 0x30>;
-			#address-cells = <1>;
-			#size-cells = <1>;
-			ranges;
+		ahci: sata@1c18000 {
+			compatible = "allwinner,sun8i-r40-ahci";
+			reg = <0x01c18000 0x1000>;
+			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_SATA>, <&ccu CLK_SATA>;
+			resets = <&ccu RST_BUS_SATA>;
+			reset-names = "ahci";
+			status = "disabled";
 
-			sram_c: sram@1d00000 {
-				compatible = "mmio-sram";
-				reg = <0x01d00000 0x80000>;
-				#address-cells = <1>;
-				#size-cells = <1>;
-				ranges = <0 0x01d00000 0x80000>;
+		};
 
-				ve_sram: sram-section@0 {
-					compatible = "allwinner,sun8i-h3-sram-c1",
-						     "allwinner,sun4i-a10-sram-c1";
-					reg = <0x000000 0x80000>;
-				};
-			};
+		ccu: clock@1c20000 {
+			compatible = "allwinner,sun8i-r40-ccu";
+			reg = <0x01c20000 0x400>;
+			clocks = <&osc24M>, <&rtc 0>;
+			clock-names = "hosc", "losc";
+			#clock-cells = <1>;
+			#reset-cells = <1>;
+		};
+
+		crypto: crypto@1c15000 {
+			compatible = "allwinner,sun8i-r40-crypto";
+			reg = <0x01c15000 0x1000>;
+			interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_CE>, <&ccu CLK_CE>;
+			clock-names = "bus", "mod";
+			resets = <&ccu RST_BUS_CE>;
+		};
+		
+		csi0: csi@1c09000 {
+			compatible = "allwinner,sun8i-r40-csi0",
+				     "allwinner,sun7i-a20-csi0";
+			reg = <0x01c09000 0x1000>;
+			interrupts = <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_CSI0>, <&ccu CLK_CSI_SCLK>,
+				 <&ccu CLK_DRAM_CSI0>;
+			clock-names = "bus", "isp", "ram";
+			resets = <&ccu RST_BUS_CSI0>;
+			interconnects = <&mbus 5>;
+			interconnect-names = "dma-mem";
+			status = "disabled";
+		};
+		
+		codec: codec@01c22c00 {
+			#sound-dai-cells = <0>;
+			compatible = "allwinner,sun8i-h3-codec";
+			reg = <0x01c22c00 0x300>;
+			interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_CODEC>, <&ccu CLK_CODEC>;
+			clock-names = "apb", "codec";
+			resets = <&ccu RST_BUS_CODEC>;
+			dmas = <&dma 19>, <&dma 19>;
+			dma-names = "rx", "tx";
+			allwinner,codec-analog-controls = <&codec_analog>;
+			allwinner,audio-routing =
+				"Headphone", "HP",
+				"MIC1", "MBIAS",
+				"MIC1", "Mic";
+			status = "okay";
+		};
+
+		codec_analog: codec-analog@01c22f00 {
+			compatible = "allwinner,sun8i-a23-codec-analog";
+			reg = <0x01c22f00 0x4>;
 		};
 
 		display_clocks: clock@1000000 {
@@ -166,6 +219,234 @@
 			resets = <&ccu RST_BUS_DE>;
 			#clock-cells = <1>;
 			#reset-cells = <1>;
+		};
+
+		dma: dma-controller@01c02000 {
+			compatible = "allwinner,sun8i-h3-dma";
+			reg = <0x01c02000 0x1000>;
+			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_DMA>;
+			resets = <&ccu RST_BUS_DMA>;
+			#dma-cells = <1>;
+		};
+
+		ehci1: usb@1c19000 {
+			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
+			reg = <0x01c19000 0x100>;
+			interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_EHCI1>;
+			resets = <&ccu RST_BUS_EHCI1>;
+			phys = <&usbphy 1>;
+			phy-names = "usb";
+			status = "disabled";
+		};
+
+		ehci2: usb@1c1c000 {
+			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
+			reg = <0x01c1c000 0x100>;
+			interrupts = <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_EHCI2>;
+			resets = <&ccu RST_BUS_EHCI2>;
+			phys = <&usbphy 2>;
+			phy-names = "usb";
+			status = "disabled";
+		};
+
+		gic: interrupt-controller@1c81000 {
+			compatible = "arm,gic-400";
+			reg = <0x01c81000 0x1000>,
+			      <0x01c82000 0x2000>,
+			      <0x01c84000 0x2000>,
+			      <0x01c86000 0x2000>;
+			interrupt-controller;
+			#interrupt-cells = <3>;
+			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
+		};
+		
+		gmac: ethernet@1c50000 {
+			compatible = "allwinner,sun8i-r40-gmac";
+			syscon = <&ccu>;
+			reg = <0x01c50000 0x10000>;
+			interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "macirq";
+			resets = <&ccu RST_BUS_GMAC>;
+			reset-names = "stmmaceth";
+			clocks = <&ccu CLK_BUS_GMAC>;
+			clock-names = "stmmaceth";
+			status = "disabled";
+
+			gmac_mdio: mdio {
+				compatible = "snps,dwmac-mdio";
+				#address-cells = <1>;
+				#size-cells = <0>;
+			};
+		};
+
+		hdmi: hdmi@1ee0000 {
+			compatible = "allwinner,sun8i-r40-dw-hdmi",
+				     "allwinner,sun8i-a83t-dw-hdmi";
+			reg = <0x01ee0000 0x10000>;
+			reg-io-width = <1>;
+			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_HDMI0>, <&ccu CLK_HDMI_SLOW>,
+				 <&ccu CLK_HDMI>;
+			clock-names = "iahb", "isfr", "tmds";
+			resets = <&ccu RST_BUS_HDMI1>;
+			reset-names = "ctrl";
+			phys = <&hdmi_phy>;
+			phy-names = "phy";
+			status = "disabled";
+
+			ports {
+				#address-cells = <1>;
+				#size-cells = <0>;
+
+				hdmi_in: port@0 {
+					reg = <0>;
+
+					hdmi_in_tcon_top: endpoint {
+						remote-endpoint = <&tcon_top_hdmi_out_hdmi>;
+					};
+				};
+
+				hdmi_out: port@1 {
+					reg = <1>;
+				};
+			};
+		};
+
+		hdmi_phy: hdmi-phy@1ef0000 {
+			compatible = "allwinner,sun8i-r40-hdmi-phy";
+			reg = <0x01ef0000 0x10000>;
+			clocks = <&ccu CLK_BUS_HDMI1>, <&ccu CLK_HDMI_SLOW>,
+				 <&ccu CLK_PLL_VIDEO0>, <&ccu CLK_PLL_VIDEO1>;
+			clock-names = "bus", "mod", "pll-0", "pll-1";
+			resets = <&ccu RST_BUS_HDMI0>;
+			reset-names = "phy";
+			#phy-cells = <0>;
+		};
+
+		i2c0: i2c@1c2ac00 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c2ac00 0x400>;
+			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_I2C0>;
+			resets = <&ccu RST_BUS_I2C0>;
+			pinctrl-0 = <&i2c0_pins>;
+			pinctrl-names = "default";
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		i2c1: i2c@1c2b000 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c2b000 0x400>;
+			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_I2C1>;
+			resets = <&ccu RST_BUS_I2C1>;
+			pinctrl-0 = <&i2c1_pins>;
+			pinctrl-names = "default";
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		i2c2: i2c@1c2b400 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c2b400 0x400>;
+			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_I2C2>;
+			resets = <&ccu RST_BUS_I2C2>;
+			pinctrl-0 = <&i2c2_pins>;
+			pinctrl-names = "default";
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		i2c3: i2c@1c2b800 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c2b800 0x400>;
+			interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_I2C3>;
+			resets = <&ccu RST_BUS_I2C3>;
+			pinctrl-0 = <&i2c3_pins>;
+			pinctrl-names = "default";
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		i2c4: i2c@1c2c000 {
+			compatible = "allwinner,sun6i-a31-i2c";
+			reg = <0x01c2c000 0x400>;
+			interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&ccu CLK_BUS_I2C4>;
+			resets = <&ccu RST_BUS_I2C4>;
+			pinctrl-0 = <&i2c4_pins>;
+			pinctrl-names = "default";
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		ir0: ir@1c21800 {
+			compatible = "allwinner,sun8i-r40-ir",
+				"allwinner,sun6i-a31-ir";
+			clocks = <&ccu CLK_BUS_IR0>, <&ccu CLK_IR0>;
+			clock-names = "apb", "ir";
+			resets = <&ccu RST_BUS_IR0>;
+			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+			reg = <0x01c21800 0x400>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&ir0_rx_pins>;
+			status = "disabled";
+		};
+
+		ir1: ir@1c21c00 {
+			compatible = "allwinner,sun8i-r40-ir",
+				"allwinner,sun6i-a31-ir";
+			clocks = <&ccu CLK_BUS_IR1>, <&ccu CLK_IR1>;
+			clock-names = "apb", "ir";
+			resets = <&ccu RST_BUS_IR1>;
+			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
+			reg = <0x01c21c00 0x400>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&ir1_rx_pins>;
+			status = "disabled";
+		};
+
+		mali: gpu@1c40000 {
+			compatible = "allwinner,sun8i-r40-mali",
+				     "allwinner,sun8i-a20-mali",
+				     "arm,mali-400";
+			reg = <0x01c40000 0x10000>;
+			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
+				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>;
+			interrupt-names = "gp",
+					  "gpmmu",
+					  "pp0",
+					  "ppmmu0",
+					  "pp1",
+					  "ppmmu1",
+					  "pmu";
+			clocks = <&ccu CLK_BUS_GPU>, <&ccu CLK_GPU>;
+			clock-names = "bus", "core";
+			resets = <&ccu RST_BUS_GPU>;
+		};
+
+		mbus: dram-controller@1c62000 {
+			compatible = "allwinner,sun8i-r40-mbus";
+			reg = <0x01c62000 0x1000>;
+			clocks = <&ccu CLK_MBUS>;
+			dma-ranges = <0x00000000 0x40000000 0x80000000>;
+			#interconnect-cells = <1>;
 		};
 
 		mixer0: mixer@1100000 {
@@ -210,28 +491,6 @@
 					};
 				};
 			};
-		};
-
-		nmi_intc: interrupt-controller@1c00030 {
-			compatible = "allwinner,sun7i-a20-sc-nmi";
-			interrupt-controller;
-			#interrupt-cells = <2>;
-			reg = <0x01c00030 0x0c>;
-			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-		};
-
-		csi0: csi@1c09000 {
-			compatible = "allwinner,sun8i-r40-csi0",
-				     "allwinner,sun7i-a20-csi0";
-			reg = <0x01c09000 0x1000>;
-			interrupts = <GIC_SPI 42 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_CSI0>, <&ccu CLK_CSI_SCLK>,
-				 <&ccu CLK_DRAM_CSI0>;
-			clock-names = "bus", "isp", "ram";
-			resets = <&ccu RST_BUS_CSI0>;
-			interconnects = <&mbus 5>;
-			interconnect-names = "dma-mem";
-			status = "disabled";
 		};
 
 		mmc0: mmc@1c0f000 {
@@ -293,53 +552,15 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 		};
-
-		usbphy: phy@1c13400 {
-			compatible = "allwinner,sun8i-r40-usb-phy";
-			reg = <0x01c13400 0x14>,
-			      <0x01c14800 0x4>,
-			      <0x01c19800 0x4>,
-			      <0x01c1c800 0x4>;
-			reg-names = "phy_ctrl",
-				    "pmu0",
-				    "pmu1",
-				    "pmu2";
-			clocks = <&ccu CLK_USB_PHY0>,
-				 <&ccu CLK_USB_PHY1>,
-				 <&ccu CLK_USB_PHY2>;
-			clock-names = "usb0_phy",
-				      "usb1_phy",
-				      "usb2_phy";
-			resets = <&ccu RST_USB_PHY0>,
-				 <&ccu RST_USB_PHY1>,
-				 <&ccu RST_USB_PHY2>;
-			reset-names = "usb0_reset",
-				      "usb1_reset",
-				      "usb2_reset";
-			status = "disabled";
-			#phy-cells = <1>;
+		
+		nmi_intc: interrupt-controller@1c00030 {
+			compatible = "allwinner,sun7i-a20-sc-nmi";
+			interrupt-controller;
+			#interrupt-cells = <2>;
+			reg = <0x01c00030 0x0c>;
+			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
 		};
-
-		crypto: crypto@1c15000 {
-			compatible = "allwinner,sun8i-r40-crypto";
-			reg = <0x01c15000 0x1000>;
-			interrupts = <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_CE>, <&ccu CLK_CE>;
-			clock-names = "bus", "mod";
-			resets = <&ccu RST_BUS_CE>;
-		};
-
-		ehci1: usb@1c19000 {
-			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
-			reg = <0x01c19000 0x100>;
-			interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_EHCI1>;
-			resets = <&ccu RST_BUS_EHCI1>;
-			phys = <&usbphy 1>;
-			phy-names = "usb";
-			status = "disabled";
-		};
-
+		
 		ohci1: usb@1c19400 {
 			compatible = "allwinner,sun8i-r40-ohci", "generic-ohci";
 			reg = <0x01c19400 0x100>;
@@ -348,17 +569,6 @@
 				 <&ccu CLK_USB_OHCI1>;
 			resets = <&ccu RST_BUS_OHCI1>;
 			phys = <&usbphy 1>;
-			phy-names = "usb";
-			status = "disabled";
-		};
-
-		ehci2: usb@1c1c000 {
-			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
-			reg = <0x01c1c000 0x100>;
-			interrupts = <GIC_SPI 78 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_EHCI2>;
-			resets = <&ccu RST_BUS_EHCI2>;
-			phys = <&usbphy 2>;
 			phy-names = "usb";
 			status = "disabled";
 		};
@@ -373,24 +583,6 @@
 			phys = <&usbphy 2>;
 			phy-names = "usb";
 			status = "disabled";
-		};
-
-		ccu: clock@1c20000 {
-			compatible = "allwinner,sun8i-r40-ccu";
-			reg = <0x01c20000 0x400>;
-			clocks = <&osc24M>, <&rtc 0>;
-			clock-names = "hosc", "losc";
-			#clock-cells = <1>;
-			#reset-cells = <1>;
-		};
-
-		rtc: rtc@1c20400 {
-			compatible = "allwinner,sun8i-r40-rtc";
-			reg = <0x01c20400 0x400>;
-			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
-			clock-output-names = "osc32k", "osc32k-out";
-			clocks = <&osc32k>;
-			#clock-cells = <1>;
 		};
 
 		pio: pinctrl@1c20800 {
@@ -545,257 +737,13 @@
 			};
 		};
 
-		ir0: ir@1c21800 {
-			compatible = "allwinner,sun8i-r40-ir",
-				"allwinner,sun6i-a31-ir";
-			clocks = <&ccu CLK_BUS_IR0>, <&ccu CLK_IR0>;
-			clock-names = "apb", "ir";
-			resets = <&ccu RST_BUS_IR0>;
-			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
-			reg = <0x01c21800 0x400>;
-			pinctrl-names = "default";
-			pinctrl-0 = <&ir0_rx_pins>;
-			status = "disabled";
-		};
-
-		ir1: ir@1c21c00 {
-			compatible = "allwinner,sun8i-r40-ir",
-				"allwinner,sun6i-a31-ir";
-			clocks = <&ccu CLK_BUS_IR1>, <&ccu CLK_IR1>;
-			clock-names = "apb", "ir";
-			resets = <&ccu RST_BUS_IR1>;
-			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-			reg = <0x01c21c00 0x400>;
-			pinctrl-names = "default";
-			pinctrl-0 = <&ir1_rx_pins>;
-			status = "disabled";
-		};
-
-		wdt: watchdog@1c20c90 {
-			compatible = "allwinner,sun4i-a10-wdt";
-			reg = <0x01c20c90 0x10>;
+		rtc: rtc@1c20400 {
+			compatible = "allwinner,sun8i-r40-rtc";
+			reg = <0x01c20400 0x400>;
 			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&osc24M>;
-		};
-
-		dma: dma-controller@01c02000 {
-			compatible = "allwinner,sun8i-h3-dma";
-			reg = <0x01c02000 0x1000>;
-			interrupts = <GIC_SPI 27 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_DMA>;
-			resets = <&ccu RST_BUS_DMA>;
-			#dma-cells = <1>;
-		};
-
-		codec: codec@01c22c00 {
-			#sound-dai-cells = <0>;
-			compatible = "allwinner,sun8i-h3-codec";
-			reg = <0x01c22c00 0x300>;
-			interrupts = <GIC_SPI 30 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_CODEC>, <&ccu CLK_CODEC>;
-			clock-names = "apb", "codec";
-			resets = <&ccu RST_BUS_CODEC>;
-			dmas = <&dma 19>, <&dma 19>;
-			dma-names = "rx", "tx";
-			allwinner,codec-analog-controls = <&codec_analog>;
-			allwinner,audio-routing =
-				"Headphone", "HP",
-				"MIC1", "MBIAS",
-				"MIC1", "Mic";
-			status = "okay";
-		};
-
-		codec_analog: codec-analog@01c22f00 {
-			compatible = "allwinner,sun8i-a23-codec-analog";
-			reg = <0x01c22f00 0x4>;
-		};
-
-		mali: gpu@1c40000 {
-			compatible = "allwinner,sun8i-r40-mali",
-				     "allwinner,sun8i-a20-mali",
-				     "arm,mali-400";
-			reg = <0x01c40000 0x10000>;
-			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 70 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 72 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
-				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>;
-			interrupt-names = "gp",
-					  "gpmmu",
-					  "pp0",
-					  "ppmmu0",
-					  "pp1",
-					  "ppmmu1",
-					  "pmu";
-			clocks = <&ccu CLK_BUS_GPU>, <&ccu CLK_GPU>;
-			clock-names = "bus", "core";
-			resets = <&ccu RST_BUS_GPU>;
-		};
-
-		video-codec@1c0e000 {
-			compatible = "allwinner,sun8i-h3-video-engine";
-			reg = <0x01c0e000 0x1000>;
-			clocks = <&ccu CLK_BUS_VE>, <&ccu CLK_VE>,
-				 <&ccu CLK_DRAM_VE>;
-			clock-names = "ahb", "mod", "ram";
-			resets = <&ccu RST_BUS_VE>;
-			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
-			allwinner,sram = <&ve_sram 1>;
-		};
-
-		uart0: serial@1c28000 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c28000 0x400>;
-			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART0>;
-			resets = <&ccu RST_BUS_UART0>;
-			status = "disabled";
-		};
-
-		uart1: serial@1c28400 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c28400 0x400>;
-			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART1>;
-			resets = <&ccu RST_BUS_UART1>;
-			status = "disabled";
-		};
-
-		uart2: serial@1c28800 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c28800 0x400>;
-			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART2>;
-			resets = <&ccu RST_BUS_UART2>;
-			status = "disabled";
-		};
-
-		uart3: serial@1c28c00 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c28c00 0x400>;
-			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART3>;
-			resets = <&ccu RST_BUS_UART3>;
-			status = "disabled";
-		};
-
-		uart4: serial@1c29000 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c29000 0x400>;
-			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART4>;
-			resets = <&ccu RST_BUS_UART4>;
-			status = "disabled";
-		};
-
-		uart5: serial@1c29400 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c29400 0x400>;
-			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART5>;
-			resets = <&ccu RST_BUS_UART5>;
-			status = "disabled";
-		};
-
-		uart6: serial@1c29800 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c29800 0x400>;
-			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART6>;
-			resets = <&ccu RST_BUS_UART6>;
-			status = "disabled";
-		};
-
-		uart7: serial@1c29c00 {
-			compatible = "snps,dw-apb-uart";
-			reg = <0x01c29c00 0x400>;
-			interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
-			reg-shift = <2>;
-			reg-io-width = <4>;
-			clocks = <&ccu CLK_BUS_UART7>;
-			resets = <&ccu RST_BUS_UART7>;
-			status = "disabled";
-		};
-
-		i2c0: i2c@1c2ac00 {
-			compatible = "allwinner,sun6i-a31-i2c";
-			reg = <0x01c2ac00 0x400>;
-			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_I2C0>;
-			resets = <&ccu RST_BUS_I2C0>;
-			pinctrl-0 = <&i2c0_pins>;
-			pinctrl-names = "default";
-			status = "disabled";
-			#address-cells = <1>;
-			#size-cells = <0>;
-		};
-
-		i2c1: i2c@1c2b000 {
-			compatible = "allwinner,sun6i-a31-i2c";
-			reg = <0x01c2b000 0x400>;
-			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_I2C1>;
-			resets = <&ccu RST_BUS_I2C1>;
-			pinctrl-0 = <&i2c1_pins>;
-			pinctrl-names = "default";
-			status = "disabled";
-			#address-cells = <1>;
-			#size-cells = <0>;
-		};
-
-		i2c2: i2c@1c2b400 {
-			compatible = "allwinner,sun6i-a31-i2c";
-			reg = <0x01c2b400 0x400>;
-			interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_I2C2>;
-			resets = <&ccu RST_BUS_I2C2>;
-			pinctrl-0 = <&i2c2_pins>;
-			pinctrl-names = "default";
-			status = "disabled";
-			#address-cells = <1>;
-			#size-cells = <0>;
-		};
-
-		i2c3: i2c@1c2b800 {
-			compatible = "allwinner,sun6i-a31-i2c";
-			reg = <0x01c2b800 0x400>;
-			interrupts = <GIC_SPI 88 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_I2C3>;
-			resets = <&ccu RST_BUS_I2C3>;
-			pinctrl-0 = <&i2c3_pins>;
-			pinctrl-names = "default";
-			status = "disabled";
-			#address-cells = <1>;
-			#size-cells = <0>;
-		};
-
-		i2c4: i2c@1c2c000 {
-			compatible = "allwinner,sun6i-a31-i2c";
-			reg = <0x01c2c000 0x400>;
-			interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_I2C4>;
-			resets = <&ccu RST_BUS_I2C4>;
-			pinctrl-0 = <&i2c4_pins>;
-			pinctrl-names = "default";
-			status = "disabled";
-			#address-cells = <1>;
-			#size-cells = <0>;
+			clock-output-names = "osc32k", "osc32k-out";
+			clocks = <&osc32k>;
+			#clock-cells = <1>;
 		};
 
 		spi0: spi@1c05000 {
@@ -850,42 +798,26 @@
 			#size-cells = <0>;
 		};
 
-		ahci: sata@1c18000 {
-			compatible = "allwinner,sun8i-r40-ahci";
-			reg = <0x01c18000 0x1000>;
-			interrupts = <GIC_SPI 56 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_SATA>, <&ccu CLK_SATA>;
-			resets = <&ccu RST_BUS_SATA>;
-			reset-names = "ahci";
-			status = "disabled";
+		system-control@1c00000 {
+			compatible = "allwinner,sun8i-h3-system-control";
+			reg = <0x01c00000 0x30>;
+			#address-cells = <1>;
+			#size-cells = <1>;
+			ranges;
 
-		};
-
-		gmac: ethernet@1c50000 {
-			compatible = "allwinner,sun8i-r40-gmac";
-			syscon = <&ccu>;
-			reg = <0x01c50000 0x10000>;
-			interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
-			interrupt-names = "macirq";
-			resets = <&ccu RST_BUS_GMAC>;
-			reset-names = "stmmaceth";
-			clocks = <&ccu CLK_BUS_GMAC>;
-			clock-names = "stmmaceth";
-			status = "disabled";
-
-			gmac_mdio: mdio {
-				compatible = "snps,dwmac-mdio";
+			sram_c: sram@1d00000 {
+				compatible = "mmio-sram";
+				reg = <0x01d00000 0x80000>;
 				#address-cells = <1>;
-				#size-cells = <0>;
-			};
-		};
+				#size-cells = <1>;
+				ranges = <0 0x01d00000 0x80000>;
 
-		mbus: dram-controller@1c62000 {
-			compatible = "allwinner,sun8i-r40-mbus";
-			reg = <0x01c62000 0x1000>;
-			clocks = <&ccu CLK_MBUS>;
-			dma-ranges = <0x00000000 0x40000000 0x80000000>;
-			#interconnect-cells = <1>;
+				ve_sram: sram-section@0 {
+					compatible = "allwinner,sun8i-h3-sram-c1",
+						     "allwinner,sun4i-a10-sram-c1";
+					reg = <0x000000 0x80000>;
+				};
+			};
 		};
 
 		tcon_top: tcon-top@1c70000 {
@@ -1091,70 +1023,138 @@
 				};
 			};
 		};
-
-		gic: interrupt-controller@1c81000 {
-			compatible = "arm,gic-400";
-			reg = <0x01c81000 0x1000>,
-			      <0x01c82000 0x2000>,
-			      <0x01c84000 0x2000>,
-			      <0x01c86000 0x2000>;
-			interrupt-controller;
-			#interrupt-cells = <3>;
-			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(4) | IRQ_TYPE_LEVEL_HIGH)>;
-		};
-
-		hdmi: hdmi@1ee0000 {
-			compatible = "allwinner,sun8i-r40-dw-hdmi",
-				     "allwinner,sun8i-a83t-dw-hdmi";
-			reg = <0x01ee0000 0x10000>;
-			reg-io-width = <1>;
-			interrupts = <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>;
-			clocks = <&ccu CLK_BUS_HDMI0>, <&ccu CLK_HDMI_SLOW>,
-				 <&ccu CLK_HDMI>;
-			clock-names = "iahb", "isfr", "tmds";
-			resets = <&ccu RST_BUS_HDMI1>;
-			reset-names = "ctrl";
-			phys = <&hdmi_phy>;
-			phy-names = "phy";
+		
+		uart0: serial@1c28000 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c28000 0x400>;
+			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART0>;
+			resets = <&ccu RST_BUS_UART0>;
 			status = "disabled";
-
-			ports {
-				#address-cells = <1>;
-				#size-cells = <0>;
-
-				hdmi_in: port@0 {
-					reg = <0>;
-
-					hdmi_in_tcon_top: endpoint {
-						remote-endpoint = <&tcon_top_hdmi_out_hdmi>;
-					};
-				};
-
-				hdmi_out: port@1 {
-					reg = <1>;
-				};
-			};
 		};
 
-		hdmi_phy: hdmi-phy@1ef0000 {
-			compatible = "allwinner,sun8i-r40-hdmi-phy";
-			reg = <0x01ef0000 0x10000>;
-			clocks = <&ccu CLK_BUS_HDMI1>, <&ccu CLK_HDMI_SLOW>,
-				 <&ccu CLK_PLL_VIDEO0>, <&ccu CLK_PLL_VIDEO1>;
-			clock-names = "bus", "mod", "pll-0", "pll-1";
-			resets = <&ccu RST_BUS_HDMI0>;
-			reset-names = "phy";
-			#phy-cells = <0>;
+		uart1: serial@1c28400 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c28400 0x400>;
+			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART1>;
+			resets = <&ccu RST_BUS_UART1>;
+			status = "disabled";
 		};
-	};
 
-	pmu {
-		compatible = "arm,cortex-a7-pmu";
-		interrupts = <GIC_SPI 120 IRQ_TYPE_LEVEL_HIGH>,
-			     <GIC_SPI 121 IRQ_TYPE_LEVEL_HIGH>,
-			     <GIC_SPI 122 IRQ_TYPE_LEVEL_HIGH>,
-			     <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
-		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
+		uart2: serial@1c28800 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c28800 0x400>;
+			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART2>;
+			resets = <&ccu RST_BUS_UART2>;
+			status = "disabled";
+		};
+
+		uart3: serial@1c28c00 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c28c00 0x400>;
+			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART3>;
+			resets = <&ccu RST_BUS_UART3>;
+			status = "disabled";
+		};
+
+		uart4: serial@1c29000 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c29000 0x400>;
+			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART4>;
+			resets = <&ccu RST_BUS_UART4>;
+			status = "disabled";
+		};
+
+		uart5: serial@1c29400 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c29400 0x400>;
+			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART5>;
+			resets = <&ccu RST_BUS_UART5>;
+			status = "disabled";
+		};
+
+		uart6: serial@1c29800 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c29800 0x400>;
+			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART6>;
+			resets = <&ccu RST_BUS_UART6>;
+			status = "disabled";
+		};
+
+		uart7: serial@1c29c00 {
+			compatible = "snps,dw-apb-uart";
+			reg = <0x01c29c00 0x400>;
+			interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
+			reg-shift = <2>;
+			reg-io-width = <4>;
+			clocks = <&ccu CLK_BUS_UART7>;
+			resets = <&ccu RST_BUS_UART7>;
+			status = "disabled";
+		};
+
+		usbphy: phy@1c13400 {
+			compatible = "allwinner,sun8i-r40-usb-phy";
+			reg = <0x01c13400 0x14>,
+			      <0x01c14800 0x4>,
+			      <0x01c19800 0x4>,
+			      <0x01c1c800 0x4>;
+			reg-names = "phy_ctrl",
+				    "pmu0",
+				    "pmu1",
+				    "pmu2";
+			clocks = <&ccu CLK_USB_PHY0>,
+				 <&ccu CLK_USB_PHY1>,
+				 <&ccu CLK_USB_PHY2>;
+			clock-names = "usb0_phy",
+				      "usb1_phy",
+				      "usb2_phy";
+			resets = <&ccu RST_USB_PHY0>,
+				 <&ccu RST_USB_PHY1>,
+				 <&ccu RST_USB_PHY2>;
+			reset-names = "usb0_reset",
+				      "usb1_reset",
+				      "usb2_reset";
+			status = "disabled";
+			#phy-cells = <1>;
+		};
+
+		video-codec@1c0e000 {
+			compatible = "allwinner,sun8i-h3-video-engine";
+			reg = <0x01c0e000 0x1000>;
+			clocks = <&ccu CLK_BUS_VE>, <&ccu CLK_VE>,
+				 <&ccu CLK_DRAM_VE>;
+			clock-names = "ahb", "mod", "ram";
+			resets = <&ccu RST_BUS_VE>;
+			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
+			allwinner,sram = <&ve_sram 1>;
+		};
+
+		wdt: watchdog@1c20c90 {
+			compatible = "allwinner,sun4i-a10-wdt";
+			reg = <0x01c20c90 0x10>;
+			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+			clocks = <&osc24M>;
+		};
 	};
 
 	timer {

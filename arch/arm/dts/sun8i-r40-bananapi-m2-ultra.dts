@@ -52,6 +52,7 @@
 
 	aliases {
 		ethernet0 = &gmac;
+		ethernet1 = &brcmf;
 		serial0 = &uart0;
 		serial2 = &uart2;
 		serial3 = &uart3;
@@ -127,14 +128,6 @@
 	status = "okay";
 };
 
-&mixer0 {
-	status = "okay";
-};
-
-&mixer1 {
-	status = "okay";
-};
-
 &ehci1 {
 	status = "okay";
 };
@@ -200,6 +193,14 @@
 
 #include "axp22x.dtsi"
 
+&mixer0 {
+	status = "okay";
+};
+
+&mixer1 {
+	status = "okay";
+};
+
 &mmc0 {
 	vmmc-supply = <&reg_dcdc1>;
 	bus-width = <4>;
@@ -217,9 +218,13 @@
 	non-removable;
 	status = "okay";
 
-        brcmf: bcrmf@1 {
+	brcmf: bcrmf@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
+		interrupt-names = "host-wake";
+		clocks = <&clk_out_a>;
+		pinctrl-0 = <&clk_out_a_pin>;
+		pinctrl-names = "default";
 	};
 };
 
@@ -360,7 +365,6 @@
 
 	bluetooth {
 		compatible = "brcm,bcm43438-bt";
-		max-speed = <1500000>;
 		clocks = <&ccu CLK_OUT_A>;
 		clock-names = "lpo";
 		vbat-supply = <&reg_dldo2>;
@@ -368,6 +372,7 @@
 		device-wakeup-gpios = <&pio 6 11 GPIO_ACTIVE_HIGH>; /* PG11 */
 		/* TODO host wake line connected to PMIC GPIO pins */
 		shutdown-gpios = <&pio 7 12 GPIO_ACTIVE_HIGH>; /* PH12 */
+		max-speed = <1500000>;
 	};
 };
 
@@ -376,4 +381,3 @@
 	usb2_vbus-supply = <&reg_vcc5v0>;
 	status = "okay";
 };
-
