@@ -222,6 +222,10 @@
 	brcmf: bcrmf@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
+		interrupt-names = "host-wake";
+		clocks = <&clk_out_a>;
+		pinctrl-0 = <&clk_out_a_pin>;
+		pinctrl-names = "default";
 	};
 };
 
@@ -363,7 +367,7 @@
 		compatible = "brcm,bcm43438-bt";
 		clocks = <&ccu CLK_OUT_A>;
 		clock-names = "lpo";
-		vbat-supply = <&reg_dldo3>;
+		vbat-supply = <&reg_dldo2>;
 		vddio-supply = <&reg_dldo1>;
 		device-wakeup-gpios = <&pio 6 11 GPIO_ACTIVE_HIGH>; /* PG11 */
 		/* TODO host wake line connected to PMIC GPIO pins */
