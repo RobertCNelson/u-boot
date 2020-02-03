@@ -52,7 +52,6 @@
 
 	aliases {
 		ethernet0 = &gmac;
-		ethernet1 = &brcmf;
 		serial0 = &uart0;
 		serial2 = &uart2;
 		serial3 = &uart3;
@@ -222,10 +221,6 @@
 	brcmf: bcrmf@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
-		interrupt-names = "host-wake";
-		clocks = <&clk_out_a>;
-		pinctrl-0 = <&clk_out_a_pin>;
-		pinctrl-names = "default";
 	};
 };
 
