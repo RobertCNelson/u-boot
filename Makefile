@@ -911,8 +911,8 @@ ifeq ($(CONFIG_MPC85xx)$(CONFIG_OF_SEPARATE),yy)
 ALL-y += u-boot-with-dtb.bin
 endif
 
-ifeq ($(CONFIG_ARCH_ROCKCHIP)$(CONFIG_SPL)$(CONFIG_TPL),yyy)
-ALL-y += idbloader.img
+ifeq ($(CONFIG_ARCH_ROCKCHIP)$(CONFIG_SPL),yy)
+ALL-y += u-boot-rockchip.bin
 endif
 
 LDFLAGS_u-boot += $(LDFLAGS_FINAL)
@@ -983,7 +983,7 @@ ifneq ($(CONFIG_DM_MMC)$(CONFIG_OF_CONTROL)$(CONFIG_BLK),yyy)
 	@echo >&2 "This board does not use CONFIG_DM_MMC. Please update"
 	@echo >&2 "the board to use CONFIG_DM_MMC before the v2019.04 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -993,7 +993,7 @@ ifneq ($(CONFIG_DM_USB)$(CONFIG_OF_CONTROL)$(CONFIG_BLK),yyy)
 	@echo >&2 "This board does not use CONFIG_DM_USB. Please update"
 	@echo >&2 "the board to use CONFIG_DM_USB before the v2019.07 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -1004,7 +1004,7 @@ ifeq ($(CONFIG_MVSATA_IDE),y)
 	@echo >&2 "controller driver to use CONFIG_AHCI before the v2019.07"
 	@echo >&2 "release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 ifeq ($(CONFIG_LIBATA),y)
@@ -1014,7 +1014,7 @@ ifneq ($(CONFIG_AHCI),y)
 	@echo >&2 "enabled. Please update the storage controller driver to use"
 	@echo >&2 "CONFIG_AHCI before the v2019.07 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -1024,7 +1024,7 @@ ifneq ($(CONFIG_DM_PCI),y)
 	@echo >&2 "This board does not use CONFIG_DM_PCI Please update"
 	@echo >&2 "the board to use CONFIG_DM_PCI before the v2019.07 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -1034,7 +1034,7 @@ ifneq ($(CONFIG_DM_VIDEO),y)
 	@echo >&2 "This board does not use CONFIG_DM_VIDEO Please update"
 	@echo >&2 "the board to use CONFIG_DM_VIDEO before the v2019.07 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -1052,7 +1052,7 @@ ifneq ($(CONFIG_DM_SPI_FLASH)$(CONFIG_OF_CONTROL),yy)
 	@echo >&2 "This board does not use CONFIG_DM_SPI_FLASH. Please update"
 	@echo >&2 "the board to use CONFIG_SPI_FLASH before the v2019.07 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -1063,7 +1063,7 @@ ifneq ($(CONFIG_WDT),y)
 	@echo >&2 "Please update the board to use CONFIG_WDT before the"
 	@echo >&2 "v2019.10 release."
 	@echo >&2 "Failure to update by the deadline may result in board removal."
-	@echo >&2 "See doc/driver-model/MIGRATION.txt for more info."
+	@echo >&2 "See doc/driver-model/migration.rst for more info."
 	@echo >&2 "===================================================="
 endif
 endif
@@ -1378,12 +1378,38 @@ u-boot-with-spl.bin: $(SPL_IMAGE) $(SPL_PAYLOAD) FORCE
 	$(call if_changed,pad_cat)
 
 ifeq ($(CONFIG_ARCH_ROCKCHIP),y)
-MKIMAGEFLAGS_u-boot-tpl.img = -n $(CONFIG_SYS_SOC) -T rksd
-tpl/u-boot-tpl.img: tpl/u-boot-tpl.bin FORCE
-	$(call if_changed,mkimage)
-idbloader.img: tpl/u-boot-tpl.img spl/u-boot-spl.bin FORCE
-	$(call if_changed,cat)
+
+# rockchip image type
+ifeq ($(CONFIG_SPL_SPI_LOAD),y)
+ROCKCHIP_IMG_TYPE := rkspi
+else
+ROCKCHIP_IMG_TYPE := rksd
 endif
+
+# TPL + SPL
+ifeq ($(CONFIG_SPL)$(CONFIG_TPL),yy)
+MKIMAGEFLAGS_u-boot-tpl-rockchip.bin = -n $(CONFIG_SYS_SOC) -T $(ROCKCHIP_IMG_TYPE)
+tpl/u-boot-tpl-rockchip.bin: tpl/u-boot-tpl.bin FORCE
+	$(call if_changed,mkimage)
+idbloader.img: tpl/u-boot-tpl-rockchip.bin spl/u-boot-spl.bin FORCE
+	$(call if_changed,cat)
+else
+MKIMAGEFLAGS_idbloader.img = -n $(CONFIG_SYS_SOC) -T $(ROCKCHIP_IMG_TYPE)
+idbloader.img: spl/u-boot-spl.bin FORCE
+	$(call if_changed,mkimage)
+endif
+
+ifeq ($(CONFIG_ARM64),)
+u-boot-rockchip.bin: idbloader.img u-boot.img FORCE
+	$(call if_changed,binman)
+else
+OBJCOPYFLAGS_u-boot-rockchip.bin = -I binary -O binary \
+	--pad-to=$(CONFIG_SPL_PAD_TO) --gap-fill=0xff
+u-boot-rockchip.bin: idbloader.img u-boot.itb FORCE
+	$(call if_changed,pad_cat)
+endif # CONFIG_ARM64
+
+endif # CONFIG_ARCH_ROCKCHIP
 
 ifeq ($(CONFIG_ARCH_LPC32XX)$(CONFIG_SPL),yy)
 MKIMAGEFLAGS_lpc32xx-spl.img = -T lpc32xximage -a $(CONFIG_SPL_TEXT_BASE)
