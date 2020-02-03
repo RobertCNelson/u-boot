@@ -1548,6 +1548,7 @@ config ARCH_UNIPHIER
 	select DM_GPIO
 	select DM_I2C
 	select DM_MMC
+	select DM_MTD
 	select DM_RESET
 	select DM_SERIAL
 	select DM_USB
@@ -1625,6 +1626,7 @@ config ARCH_STM32MP
 config ARCH_ROCKCHIP
 	bool "Support Rockchip SoCs"
 	select BLK
+	select BINMAN if !ARM64
 	select DM
 	select DM_GPIO
 	select DM_I2C
