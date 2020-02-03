@@ -58,6 +58,23 @@
 		#size-cells = <1>;
 		ranges;
 
+		osc24M_32k: clk@1 {
+			#clock-cells = <0>;
+			compatible = "fixed-factor-clock";
+			clock-div = <732>;
+			clock-mult = <1>;
+			clocks = <&osc24M>;
+			clock-output-names = "osc24M_32k";
+		};
+
+		clk_out_a: clk@01c201f0 {
+			#clock-cells = <0>;
+			compatible = "allwinner,sun7i-a20-out-clk";
+			reg = <0x01c201f0 0x4>;
+			clocks = <&osc24M_32k>, <&osc32k>, <&osc24M>;
+			clock-output-names = "clk_out_a";
+		};
+
 		osc24M: osc24M {
 			#clock-cells = <0>;
 			compatible = "fixed-clock";
