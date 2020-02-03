@@ -58,14 +58,6 @@
 		#size-cells = <1>;
 		ranges;
 
-		clk_out_a: clk@01c201f0 {
-			#clock-cells = <0>;
-			compatible = "allwinner,sun7i-a20-out-clk";
-			reg = <0x01c201f0 0x4>;
-			clocks = <&osc24M_32k>, <&osc32k>, <&osc24M>;
-			clock-output-names = "clk_out_a";
-		};
-
 		osc24M: osc24M {
 			#clock-cells = <0>;
 			compatible = "fixed-clock";
@@ -80,15 +72,6 @@
 			clock-frequency = <32768>;
 			clock-accuracy = <20000>;
 			clock-output-names = "ext-osc32k";
-		};
-
-		osc24M_32k: clk@1 {
-			#clock-cells = <0>;
-			compatible = "fixed-factor-clock";
-			clock-div = <732>;
-			clock-mult = <1>;
-			clocks = <&osc24M>;
-			clock-output-names = "osc24M_32k";
 		};
 	};
 
@@ -393,7 +376,7 @@
 
 		ir0: ir@1c21800 {
 			compatible = "allwinner,sun8i-r40-ir",
-				"allwinner,sun6i-a31-ir";
+				     "allwinner,sun6i-a31-ir";
 			clocks = <&ccu CLK_BUS_IR0>, <&ccu CLK_IR0>;
 			clock-names = "apb", "ir";
 			resets = <&ccu RST_BUS_IR0>;
@@ -406,7 +389,7 @@
 
 		ir1: ir@1c21c00 {
 			compatible = "allwinner,sun8i-r40-ir",
-				"allwinner,sun6i-a31-ir";
+				     "allwinner,sun6i-a31-ir";
 			clocks = <&ccu CLK_BUS_IR1>, <&ccu CLK_IR1>;
 			clock-names = "apb", "ir";
 			resets = <&ccu RST_BUS_IR1>;
@@ -453,9 +436,9 @@
 			compatible = "allwinner,sun8i-r40-de2-mixer-0";
 			reg = <0x01100000 0x100000>;
 			clocks = <&display_clocks CLK_BUS_MIXER0>,
-					 <&display_clocks CLK_MIXER0>;
+				 <&display_clocks CLK_MIXER0>;
 			clock-names = "bus",
-						  "mod";
+				      "mod";
 			resets = <&display_clocks RST_MIXER0>;
 
 			ports {
@@ -475,9 +458,9 @@
 			compatible = "allwinner,sun8i-r40-de2-mixer-1";
 			reg = <0x01200000 0x100000>;
 			clocks = <&display_clocks CLK_BUS_MIXER1>,
-					 <&display_clocks CLK_MIXER1>;
+				 <&display_clocks CLK_MIXER1>;
 			clock-names = "bus",
-						  "mod";
+				      "mod";
 			resets = <&display_clocks RST_WB>;
 
 			ports {
@@ -656,7 +639,7 @@
 				function = "ir0";
 			};
 
-            ir1_rx_pins: ir1-rx-pins {
+			ir1_rx_pins: ir1-rx-pins {
 				pins = "PB23";
 				function = "ir1";
 			};
