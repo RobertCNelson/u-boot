@@ -96,7 +96,7 @@
 	wifi_pwrseq: wifi_pwrseq {
 		compatible = "mmc-pwrseq-simple";
 		reset-gpios = <&pio 6 10 GPIO_ACTIVE_LOW>; /* PG10 WIFI_EN */
-		clocks = <&ccu CLK_OUT_A>;
+		clocks = <&ccu CLK_OUTA>;
 		clock-names = "ext_clock";
 	};
 };
@@ -288,7 +288,7 @@
 
 	bluetooth {
 		compatible = "brcm,bcm43438-bt";
-		clocks = <&ccu CLK_OUT_A>;
+		clocks = <&ccu CLK_OUTA>;
 		clock-names = "lpo";
 		vbat-supply = <&reg_dldo2>;
 		vddio-supply = <&reg_dldo1>;
