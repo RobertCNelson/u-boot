@@ -58,6 +58,22 @@
 		#size-cells = <1>;
 		ranges;
 
+		osc24M: osc24M {
+			#clock-cells = <0>;
+			compatible = "fixed-clock";
+			clock-frequency = <24000000>;
+			clock-accuracy = <50000>;
+			clock-output-names = "osc24M";
+		};
+
+		osc32k: osc32k {
+			#clock-cells = <0>;
+			compatible = "fixed-clock";
+			clock-frequency = <32768>;
+			clock-accuracy = <20000>;
+			clock-output-names = "ext-osc32k";
+		};
+
 		osc24M_32k: clk@1 {
 			#clock-cells = <0>;
 			compatible = "fixed-factor-clock";
@@ -73,22 +89,6 @@
 			reg = <0x01c201f0 0x4>;
 			clocks = <&osc24M_32k>, <&osc32k>, <&osc24M>;
 			clock-output-names = "clk_out_a";
-		};
-
-		osc24M: osc24M {
-			#clock-cells = <0>;
-			compatible = "fixed-clock";
-			clock-frequency = <24000000>;
-			clock-accuracy = <50000>;
-			clock-output-names = "osc24M";
-		};
-
-		osc32k: osc32k {
-			#clock-cells = <0>;
-			compatible = "fixed-clock";
-			clock-frequency = <32768>;
-			clock-accuracy = <20000>;
-			clock-output-names = "ext-osc32k";
 		};
 	};
 
@@ -600,7 +600,7 @@
 				pins = "PI12";
 				function = "clk_out_a";
 			};
-			
+
 			csi0_8bits_pins: csi0-8bits-pins {
 				pins = "PE0", "PE2", "PE3", "PE4", "PE5",
 				       "PE6", "PE7", "PE8", "PE9", "PE10",
@@ -718,11 +718,6 @@
 
 			uart2_pi_pins: uart2-pi-pins {
 				pins = "PI18", "PI19";
-				function = "uart2";
-			};
-
-			uart2_rts_cts_pi_pins: uart2-rts-cts-pi-pins {
-				pins = "PI16", "PI17";
 				function = "uart2";
 			};
 
@@ -1137,7 +1132,7 @@
 			status = "disabled";
 			#phy-cells = <1>;
 		};
-
+/*
 		video-codec@1c0e000 {
 			compatible = "allwinner,sun8i-h3-video-engine";
 			reg = <0x01c0e000 0x1000>;
@@ -1148,7 +1143,7 @@
 			interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
 			allwinner,sram = <&ve_sram 1>;
 		};
-
+*/
 		wdt: watchdog@1c20c90 {
 			compatible = "allwinner,sun4i-a10-wdt";
 			reg = <0x01c20c90 0x10>;
