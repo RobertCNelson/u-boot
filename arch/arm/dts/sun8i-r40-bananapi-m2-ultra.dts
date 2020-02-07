@@ -112,6 +112,8 @@
 	wifi_pwrseq: wifi_pwrseq {
 		compatible = "mmc-pwrseq-simple";
 		reset-gpios = <&pio 6 10 GPIO_ACTIVE_LOW>; /* PG10 WIFI_EN */
+		clocks = <&ccu CLK_OUTA>;
+		clock-names = "ext_clock";
 	};
 };
 
@@ -214,11 +216,6 @@
 	bus-width = <8>;
 	non-removable;
 	status = "okay";
-
-	brcmf: bcrmf@1 {
-		reg = <1>;
-		compatible = "brcm,bcm4329-fmac";
-	};
 };
 
 &mmc2 {
@@ -296,7 +293,6 @@
 };
 
 &reg_dldo1 {
-	regulator-always-on;
 	regulator-min-microvolt = <1800000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi-io";
@@ -310,12 +306,14 @@
  */
 
 &reg_dldo2 {
+	regulator-always-on;
 	regulator-min-microvolt = <3300000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi";
 };
 
 &reg_dldo3 {
+	regulator-always-on;
 	regulator-min-microvolt = <3300000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi-2";
@@ -357,6 +355,7 @@
 
 	bluetooth {
 		compatible = "brcm,bcm43438-bt";
+		max-speed = <1500000>;
 		clocks = <&ccu CLK_OUTA>;
 		clock-names = "lpo";
 		vbat-supply = <&reg_dldo3>;
@@ -364,7 +363,6 @@
 		device-wakeup-gpios = <&pio 6 11 GPIO_ACTIVE_HIGH>; /* PG11 */
 		/* TODO host wake line connected to PMIC GPIO pins */
 		shutdown-gpios = <&pio 7 12 GPIO_ACTIVE_HIGH>; /* PH12 */
-		max-speed = <1500000>;
 	};
 };
 
