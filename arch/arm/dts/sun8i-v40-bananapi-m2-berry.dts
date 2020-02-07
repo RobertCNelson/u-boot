@@ -142,6 +142,18 @@
 	};
 };
 
+&ir0 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&ir0_rx_pins>;
+	status = "okay";
+};
+
+&ir1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&ir1_rx_pins>;
+	status = "disabled";
+};
+
 &i2c0 {
 	status = "okay";
 
