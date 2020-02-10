@@ -216,6 +216,15 @@
 	bus-width = <8>;
 	non-removable;
 	status = "okay";
+
+	brcmf: bcrmf@1 {
+		reg = <1>;
+		compatible = "brcm,bcm4329-fmac";
+		interrupt-names = "host-wake";
+		clocks = <&clk_out_a>;
+		pinctrl-0 = <&clk_out_a_pin>;
+		pinctrl-names = "default";
+	};
 };
 
 &mmc2 {
@@ -364,6 +373,24 @@
 		/* TODO host wake line connected to PMIC GPIO pins */
 		shutdown-gpios = <&pio 7 12 GPIO_ACTIVE_HIGH>; /* PH12 */
 	};
+};
+
+&uart4 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart4_ph_pins>;
+	status = "disabled";
+};
+
+&uart5 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart5_ph_pins>;
+	status = "disabled";
+};
+
+&uart7 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart7_pi_pins>;
+	status = "disabled";
 };
 
 &usbphy {
