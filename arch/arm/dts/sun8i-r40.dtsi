@@ -616,6 +616,8 @@
 			clk_out_a_pin: clk-out-a-pin {
 				pins = "PI12";
 				function = "clk_out_a";
+				drive = <0>;
+				pull = <0>;
 			};
 
 			csi0_8bits_pins: csi0-8bits-pins {
