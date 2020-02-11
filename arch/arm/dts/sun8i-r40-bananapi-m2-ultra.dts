@@ -112,7 +112,7 @@
 	wifi_pwrseq: wifi_pwrseq {
 		compatible = "mmc-pwrseq-simple";
 		reset-gpios = <&pio 6 10 GPIO_ACTIVE_LOW>; /* PG10 WIFI_EN */
-		clocks = <&clk_out_a>;
+		clocks = <&ccu CLK_OUTA>;
 		clock-names = "ext_clock";
 	};
 };
