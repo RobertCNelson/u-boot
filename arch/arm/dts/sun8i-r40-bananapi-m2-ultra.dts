@@ -111,9 +111,9 @@
 
 	wifi_pwrseq: wifi_pwrseq {
 		compatible = "mmc-pwrseq-simple";
-		reset-gpios = <&pio 6 10 GPIO_ACTIVE_LOW>; /* PG10 WIFI_EN */
 		clocks = <&ccu CLK_OUTA>;
 		clock-names = "ext_clock";
+		reset-gpios = <&pio 6 10 GPIO_ACTIVE_LOW>; /* PG10 WIFI_EN */
 	};
 };
 
@@ -300,7 +300,7 @@
 };
 
 &reg_dldo1 {
-	regulator-min-microvolt = <3300000>;
+	regulator-min-microvolt = <1800000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi-io";
 };
@@ -313,14 +313,12 @@
  */
 
 &reg_dldo2 {
-	regulator-always-on;
 	regulator-min-microvolt = <3300000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi";
 };
 
 &reg_dldo3 {
-	regulator-always-on;
 	regulator-min-microvolt = <3300000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi-2";
