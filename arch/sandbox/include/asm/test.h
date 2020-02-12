@@ -45,6 +45,10 @@
 #define PCI_EA_BAR2_MAGIC		0x72727272
 #define PCI_EA_BAR4_MAGIC		0x74747474
 
+enum {
+	SANDBOX_IRQN_PEND = 1,	/* Interrupt number for 'pending' test */
+};
+
 /* System controller driver data */
 enum {
 	SYSCON0		= 32,
@@ -164,6 +168,13 @@ int sandbox_get_i2s_sum(struct udevice *dev);
  * @return call count for the setup() method
  */
 int sandbox_get_setup_called(struct udevice *dev);
+
+/**
+ * sandbox_get_sound_active() - Returns whether sound play is in progress
+ *
+ * @return true if active, false if not
+ */
+int sandbox_get_sound_active(struct udevice *dev);
 
 /**
  * sandbox_get_sound_sum() - Read back the sum of the sound data so far

@@ -56,7 +56,7 @@ R:	Sam Protsenko <joe.skb7@gmail.com>
 S:	Maintained
 F:	cmd/ab_select.c
 F:	common/android_ab.c
-F:	doc/android/ab.txt
+F:	doc/android/ab.rst
 F:	include/android_ab.h
 F:	test/py/tests/test_android/test_ab.py
 
@@ -65,7 +65,7 @@ M:	Igor Opaniuk <igor.opaniuk@gmail.com>
 S:	Maintained
 F:	cmd/avb.c
 F:	common/avb_verify.c
-F:	doc/android/avb2.txt
+F:	doc/android/avb2.rst
 F:	include/avb_verify.h
 F:	lib/libavb/
 F:	test/py/tests/test_android/test_avb.py
@@ -172,6 +172,14 @@ F:	configs/bcm7*_defconfig
 F:	doc/README.bcm7xxx
 F:	drivers/mmc/bcmstb_sdhci.c
 F:	drivers/spi/bcmstb_spi.c
+
+ARM CORTINA ACCESS CAxxxx
+M:	Alex Nemirovsky <alex.nemirovsky@cortina-access.com>
+S:	Supported
+F:	board/cortina/common/
+F:	drivers/gpio/cortina_gpio.c
+F:	drivers/watchdog/cortina_wdt.c
+F:	drivers/serial/serial_cortina.c
 
 ARM/CZ.NIC TURRIS MOX SUPPORT
 M:	Marek Behun <marek.behun@nic.cz>
@@ -654,6 +662,14 @@ M:	Daniel Schwierzeck <daniel.schwierzeck@gmail.com>
 S:	Maintained
 T:	git https://gitlab.denx.de/u-boot/custodians/u-boot-mips.git
 F:	arch/mips/
+
+MIPS CORTINA ACCESS CAxxxx
+M:	Alex Nemirovsky <alex.nemirovsky@cortina-access.com>
+S:	Supported
+F:	board/cortina/common/
+F:	drivers/gpio/cortina_gpio.c
+F:	drivers/watchdog/cortina_wdt.c
+F:	drivers/serial/serial_cortina.c
 
 MIPS MSCC
 M:	Gregory CLEMENT <gregory.clement@bootlin.com>

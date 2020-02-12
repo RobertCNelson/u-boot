@@ -14,10 +14,12 @@
 
 #include <common.h>
 #include <dm.h>
+#include <malloc.h>
 #include <dm/lists.h>
 #include <dm/of_access.h>
 #include <env.h>
 #include <reset-uclass.h>
+#include <wait_bit.h>
 #include <linux/bitops.h>
 #include <linux/io.h>
 #include <linux/sizes.h>
@@ -80,7 +82,10 @@ static int socfpga_reset_deassert(struct reset_ctl *reset_ctl)
 	int offset = id % (reg_width * BITS_PER_BYTE);
 
 	clrbits_le32(data->modrst_base + (bank * BANK_INCREMENT), BIT(offset));
-	return 0;
+
+	return wait_for_bit_le32(data->modrst_base + (bank * BANK_INCREMENT),
+				 BIT(offset),
+				 false, 500, false);
 }
 
 static int socfpga_reset_request(struct reset_ctl *reset_ctl)
@@ -101,7 +106,7 @@ static int socfpga_reset_free(struct reset_ctl *reset_ctl)
 
 static const struct reset_ops socfpga_reset_ops = {
 	.request = socfpga_reset_request,
-	.free = socfpga_reset_free,
+	.rfree = socfpga_reset_free,
 	.rst_assert = socfpga_reset_assert,
 	.rst_deassert = socfpga_reset_deassert,
 };

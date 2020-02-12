@@ -19,15 +19,17 @@
 #include <common.h>
 #include <dm.h>
 #include <irq.h>
+#include <malloc.h>
 #include <p2sb.h>
 #include <spl.h>
 #include <asm-generic/gpio.h>
 #include <asm/intel_pinctrl.h>
 #include <asm/intel_pinctrl_defs.h>
 #include <asm/arch/gpio.h>
-#include <asm/arch/itss.h>
+#include <asm/itss.h>
 #include <dm/device-internal.h>
 #include <dt-bindings/gpio/gpio.h>
+#include <linux/err.h>
 
 #define GPIO_DW_SIZE(x)			(sizeof(u32) * (x))
 #define PAD_CFG_OFFSET(x, dw_num)	((x) + GPIO_DW_SIZE(dw_num))
@@ -613,7 +615,7 @@ int intel_pinctrl_ofdata_to_platdata(struct udevice *dev,
 		log_err("Cannot find community for pid %d\n", pplat->pid);
 		return -EDOM;
 	}
-	ret = uclass_first_device_err(UCLASS_IRQ, &priv->itss);
+	ret = irq_first_device_type(X86_IRQT_ITSS, &priv->itss);
 	if (ret)
 		return log_msg_ret("Cannot find ITSS", ret);
 	priv->comm = comm;

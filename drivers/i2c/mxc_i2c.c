@@ -16,6 +16,7 @@
 #include <common.h>
 #include <asm/arch/clock.h>
 #include <asm/arch/imx-regs.h>
+#include <dm/device_compat.h>
 #include <linux/errno.h>
 #include <asm/mach-imx/mxc_i2c.h>
 #include <asm/io.h>
@@ -1049,5 +1050,6 @@ U_BOOT_DRIVER(i2c_mxc) = {
 	.probe = mxc_i2c_probe,
 	.priv_auto_alloc_size = sizeof(struct mxc_i2c_bus),
 	.ops = &mxc_i2c_ops,
+	.flags = DM_FLAG_PRE_RELOC,
 };
 #endif

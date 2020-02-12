@@ -12,6 +12,7 @@
 #include <dm/test.h>
 #include <dm/root.h>
 #include <dm/device-internal.h>
+#include <dm/devres.h>
 #include <dm/uclass-internal.h>
 #include <dm/util.h>
 #include <dm/lists.h>
@@ -448,6 +449,27 @@ static int dm_test_first_next_device(struct unit_test_state *uts)
 }
 DM_TEST(dm_test_first_next_device, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);
 
+/* Test iteration through devices in a uclass */
+static int dm_test_uclass_foreach(struct unit_test_state *uts)
+{
+	struct udevice *dev;
+	struct uclass *uc;
+	int count;
+
+	count = 0;
+	uclass_id_foreach_dev(UCLASS_TEST_FDT, dev, uc)
+		count++;
+	ut_asserteq(8, count);
+
+	count = 0;
+	uclass_foreach_dev(dev, uc)
+		count++;
+	ut_asserteq(8, count);
+
+	return 0;
+}
+DM_TEST(dm_test_uclass_foreach, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);
+
 /**
  * check_devices() - Check return values and pointers
  *
@@ -872,3 +894,62 @@ static int dm_test_read_int(struct unit_test_state *uts)
 	return 0;
 }
 DM_TEST(dm_test_read_int, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);
+
+/* Test iteration through devices by drvdata */
+static int dm_test_uclass_drvdata(struct unit_test_state *uts)
+{
+	struct udevice *dev;
+
+	ut_assertok(uclass_first_device_drvdata(UCLASS_TEST_FDT,
+						DM_TEST_TYPE_FIRST, &dev));
+	ut_asserteq_str("a-test", dev->name);
+
+	ut_assertok(uclass_first_device_drvdata(UCLASS_TEST_FDT,
+						DM_TEST_TYPE_SECOND, &dev));
+	ut_asserteq_str("d-test", dev->name);
+
+	ut_asserteq(-ENODEV, uclass_first_device_drvdata(UCLASS_TEST_FDT,
+							 DM_TEST_TYPE_COUNT,
+							 &dev));
+
+	return 0;
+}
+DM_TEST(dm_test_uclass_drvdata, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);
+
+/* Test device_first_child_ofdata_err(), etc. */
+static int dm_test_child_ofdata(struct unit_test_state *uts)
+{
+	struct udevice *bus, *dev;
+	int count;
+
+	ut_assertok(uclass_first_device_err(UCLASS_TEST_BUS, &bus));
+	count = 0;
+	device_foreach_child_ofdata_to_platdata(dev, bus) {
+		ut_assert(dev->flags & DM_FLAG_PLATDATA_VALID);
+		ut_assert(!(dev->flags & DM_FLAG_ACTIVATED));
+		count++;
+	}
+	ut_asserteq(3, count);
+
+	return 0;
+}
+DM_TEST(dm_test_child_ofdata, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);
+
+/* Test device_first_child_err(), etc. */
+static int dm_test_first_child_probe(struct unit_test_state *uts)
+{
+	struct udevice *bus, *dev;
+	int count;
+
+	ut_assertok(uclass_first_device_err(UCLASS_TEST_BUS, &bus));
+	count = 0;
+	device_foreach_child_probe(dev, bus) {
+		ut_assert(dev->flags & DM_FLAG_PLATDATA_VALID);
+		ut_assert(dev->flags & DM_FLAG_ACTIVATED);
+		count++;
+	}
+	ut_asserteq(3, count);
+
+	return 0;
+}
+DM_TEST(dm_test_first_child_probe, DM_TESTF_SCAN_PDATA | DM_TESTF_SCAN_FDT);

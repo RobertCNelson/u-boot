@@ -271,9 +271,6 @@ int uclass_find_device_by_name(enum uclass_id id, const char *name,
 	return -ENODEV;
 }
 
-#if !CONFIG_IS_ENABLED(OF_CONTROL) || \
-    CONFIG_IS_ENABLED(OF_PLATDATA) || \
-    CONFIG_IS_ENABLED(OF_PRIOR_STAGE)
 int uclass_find_next_free_req_seq(enum uclass_id id)
 {
 	struct uclass *uc;
@@ -295,7 +292,6 @@ int uclass_find_next_free_req_seq(enum uclass_id id)
 
 	return max + 1;
 }
-#endif
 
 int uclass_find_device_by_seq(enum uclass_id id, int seq_or_req_seq,
 			      bool find_req_seq, struct udevice **devp)
@@ -627,6 +623,23 @@ int uclass_next_device_check(struct udevice **devp)
 		return 0;
 
 	return device_probe(*devp);
+}
+
+int uclass_first_device_drvdata(enum uclass_id id, ulong driver_data,
+				struct udevice **devp)
+{
+	struct udevice *dev;
+	struct uclass *uc;
+
+	uclass_id_foreach_dev(id, dev, uc) {
+		if (dev_get_driver_data(dev) == driver_data) {
+			*devp = dev;
+
+			return device_probe(dev);
+		}
+	}
+
+	return -ENODEV;
 }
 
 int uclass_bind_device(struct udevice *dev)

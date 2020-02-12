@@ -27,6 +27,8 @@ obj-y += microcode.o
 endif
 endif
 obj-y += pch.o
+obj-$(CONFIG_HAVE_ITSS) += itss.o
+obj-$(CONFIG_HAVE_P2SB) += p2sb.o
 
 ifdef CONFIG_SPL
 ifndef CONFIG_SPL_BUILD

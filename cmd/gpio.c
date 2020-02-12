@@ -10,7 +10,9 @@
 #include <command.h>
 #include <errno.h>
 #include <dm.h>
+#include <malloc.h>
 #include <asm/gpio.h>
+#include <linux/err.h>
 
 __weak int name_to_gpio(const char *name)
 {
@@ -223,23 +225,35 @@ static int do_gpio(cmd_tbl_t *cmdtp, int flag, int argc, char * const argv[])
 		gpio_direction_output(gpio, value);
 	}
 	printf("gpio: pin %s (gpio %u) value is ", str_gpio, gpio);
-	if (IS_ERR_VALUE(value))
+
+	if (IS_ERR_VALUE(value)) {
 		printf("unknown (ret=%d)\n", value);
-	else
+		goto err;
+	} else {
 		printf("%d\n", value);
+	}
+
 	if (sub_cmd != GPIOC_INPUT && !IS_ERR_VALUE(value)) {
 		int nval = gpio_get_value(gpio);
 
-		if (IS_ERR_VALUE(nval))
+		if (IS_ERR_VALUE(nval)) {
 			printf("   Warning: no access to GPIO output value\n");
-		else if (nval != value)
+			goto err;
+		} else if (nval != value) {
 			printf("   Warning: value of pin is still %d\n", nval);
+			goto err;
+		}
 	}
 
 	if (ret != -EBUSY)
 		gpio_free(gpio);
 
-	return value;
+	return CMD_RET_SUCCESS;
+
+err:
+	if (ret != -EBUSY)
+		gpio_free(gpio);
+	return CMD_RET_FAILURE;
 }
 
 U_BOOT_CMD(gpio, 4, 0, do_gpio,

@@ -718,6 +718,7 @@ dtb-$(CONFIG_ARCH_IMX8) += \
 
 dtb-$(CONFIG_ARCH_IMX8M) += \
 	imx8mm-evk.dtb \
+	imx8mm-verdin.dtb \
 	imx8mn-ddr4-evk.dtb \
 	imx8mq-evk.dtb \
 	imx8mp-evk.dtb
@@ -908,6 +909,8 @@ dtb-$(CONFIG_TARGET_VEXPRESS_CA9X4) += vexpress-v2p-ca9.dtb
 dtb-$(CONFIG_TARGET_VEXPRESS_CA15_TC2) += vexpress-v2p-ca15_a7.dtb
 
 dtb-$(CONFIG_TARGET_DURIAN) += phytium-durian.dtb
+
+dtb-$(CONFIG_TARGET_PRESIDIO_ASIC) += ca-presidio-engboard.dtb
 
 targets += $(dtb-y)
 

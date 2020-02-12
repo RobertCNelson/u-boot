@@ -7,6 +7,7 @@
 #include <common.h>
 #include <dm.h>
 #include <env.h>
+#include <dm/device_compat.h>
 #include <linux/errno.h>
 #include <malloc.h>
 #include <video.h>
@@ -429,6 +430,6 @@ U_BOOT_DRIVER(mxs_video) = {
 	.bind	= mxs_video_bind,
 	.probe	= mxs_video_probe,
 	.remove = mxs_video_remove,
-	.flags	= DM_FLAG_PRE_RELOC,
+	.flags	= DM_FLAG_PRE_RELOC | DM_FLAG_OS_PREPARE,
 };
 #endif /* ifndef CONFIG_DM_VIDEO */
