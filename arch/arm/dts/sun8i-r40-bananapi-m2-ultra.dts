@@ -220,10 +220,6 @@
 	brcmf: bcrmf@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
-		interrupt-names = "host-wake";
-		clocks = <&clk_out_a>;
-		pinctrl-0 = <&clk_out_a_pin>;
-		pinctrl-names = "default";
 	};
 };
 
@@ -302,7 +298,7 @@
 };
 
 &reg_dldo1 {
-	regulator-min-microvolt = <1800000>;
+	regulator-min-microvolt = <3300000>;
 	regulator-max-microvolt = <3300000>;
 	regulator-name = "vcc-wifi-io";
 };
