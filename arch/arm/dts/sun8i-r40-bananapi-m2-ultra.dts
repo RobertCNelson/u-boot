@@ -214,12 +214,14 @@
 	vqmmc-supply = <&reg_dldo1>;
 	mmc-pwrseq = <&wifi_pwrseq>;
 	bus-width = <8>;
-	non-removable;
 	status = "okay";
 
 	brcmf: bcrmf@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
+		interrupt-names = "host-wake";
+		clocks = <&ccu CLK_OUTA>;
+		clock-names = "default";
 	};
 };
 
