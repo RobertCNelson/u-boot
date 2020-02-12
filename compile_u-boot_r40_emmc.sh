@@ -10,7 +10,7 @@ git clone https://github.com/juanesf/u-boot.git && cd u-boot && make Bananapi_M2
 echo "\033[36m make boot.scr.\033[0m"
 mkimage -C none -A arm -T script -d /tmp/u-boot/r40_boot.cmd boot.scr
 echo "\033[36m copying binary u-boot emmc.\033[0m"
-sudo dd if=/tmp/u-boot/u-boot-sunxi-with-spl.bin of=/dev/mmcblk0p0 bs=1024 seek=8
+sudo dd if=/tmp/u-boot/u-boot-sunxi-with-spl.bin of=/dev/mmcblk1p0 bs=1024 seek=8
 echo "\033[36m removing dtb.\033[0m"
 sudo rm /boot/dtb/sun8i-r40-bananapi-m2-ultra.dtb
 echo "\033[36m copying new dtb emmc.\033[0m"
