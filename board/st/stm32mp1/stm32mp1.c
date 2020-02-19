@@ -7,6 +7,7 @@
 #include <bootm.h>
 #include <clk.h>
 #include <config.h>
+#include <dfu.h>
 #include <dm.h>
 #include <env.h>
 #include <env_internal.h>
@@ -1011,7 +1012,7 @@ void set_dfu_alt_info(char *interface, char *devstr)
 #include <dfu.h>
 #include <power/stpmic1.h>
 
-int dfu_otp_read(u64 offset, u8 *buffer, long *size)
+static int dfu_otp_read(u64 offset, u8 *buffer, long *size)
 {
 	struct udevice *dev;
 	int ret;
@@ -1031,7 +1032,7 @@ int dfu_otp_read(u64 offset, u8 *buffer, long *size)
 	return 0;
 }
 
-int dfu_pmic_read(u64 offset, u8 *buffer, long *size)
+static int dfu_pmic_read(u64 offset, u8 *buffer, long *size)
 {
 	int ret;
 #ifdef CONFIG_PMIC_STPMIC1
